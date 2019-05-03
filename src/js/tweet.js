@@ -4,17 +4,24 @@ const IMG = require('./img.js');
 const IPFS = require('./ipfs.js');
 
 const TWEET = {
-  create: async (text, author, dataURI) => {
-    const json = {
-      text: text,
-      author: author,
-      created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-    };
-
+  create: async (text, dataURI, author = 'Robin') => {
     try {
-      const imgBlob = IMG.dataURIToBlob(dataURI);
+      // Validate.
+      TWEET.validate(text);
 
-      return await IPFS.uploadTweet(json, imgBlob);
+      // Construct the tweet object.
+      const json = {
+        text: text,
+        author: author,
+        created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      };
+      const imgBlob = dataURI !== undefined ? IMG.dataURIToBlob(dataURI) : null;
+
+      const tweet = await IPFS.uploadTweet(json, imgBlob);
+      console.log(tweet);
+
+      // TODO: save the tweet in the contract.
+
     } catch (err) {
       throw err;
     }

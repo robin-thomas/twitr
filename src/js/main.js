@@ -1,3 +1,5 @@
+const TWEET = require('./tweet.js');
+
 $(document).ready(() => {
 
   const tweetInputDialog = $('#tweet-input-dialog');
@@ -73,14 +75,21 @@ $(document).ready(() => {
     tweetImgShow.attr('src', '');
   });
 
-  confirmTweet.on('click', () => {
+  confirmTweet.on('click', async () => {
     const btn = confirmTweet;
+
     const loadingText = '<i class="fas fa-spinner fa-spin"></i>';
     btn.data('original-text', btn.html());
     btn.html(loadingText);
 
-    // Validate the tweet.
     const text = tweetArea.val();
+    const dataURI = tweetImgShow.attr('src');
+
+    try {
+      await TWEET.create(text, dataURI);
+    } catch (err) {
+      alert(err.message);
+    }
 
     btn.html(btn.data('original-text'));
   });
