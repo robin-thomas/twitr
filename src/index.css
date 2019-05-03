@@ -50,7 +50,7 @@ body {
   padding-top: 25px;
 }
 
-#content .twitr-feed > .row {
+#content .twitr-feed > div > .row {
   min-height: 50px;
   padding: 15px 10px;
   border-bottom-style: solid;

@@ -4,7 +4,7 @@ const IMG = require('./img.js');
 const IPFS = require('./ipfs.js');
 
 const TWEET = {
-  create: async (text, dataURI, author = 'Robin') => {
+  createTweet: async (text, dataURI, author = 'Robin') => {
     try {
       // Validate.
       TWEET.validate(text);
@@ -27,7 +27,7 @@ const TWEET = {
     }
   },
 
-  validate: (text) => {
+  validateTweet: (text) => {
     try {
       if (text === null || text === undefined || text.trim().length === 0) {
         throw new Error('Tweet text cannot be empty!');
@@ -37,7 +37,7 @@ const TWEET = {
     }
   },
 
-  downloadList: async (hashes) => {
+  downloadTweets: async (hashes = ['QmYYaEWAdjkn2VdtAuBj6akHjkMeBjrCstyCn9LXfhgYTd']) => {
     try {
       let results = [];
 
@@ -58,6 +58,45 @@ const TWEET = {
       return results;
     } catch (err) {
       throw err;
+    }
+  },
+
+  displayTweets: (tweets) => {
+    for (const tweet of tweets) {
+      const text = tweet.text;
+      const author = tweet.author;
+      const img = tweet.img;
+
+      // Construct the timestamp.
+      const end = moment.utc();
+      const start = moment.utc(tweet.created);
+      let created = moment.duration(end.diff(start)).asHours();
+      if (created > 24) {
+        created = start.local().format('MMM D');
+      } else if (created < 1) {
+        created = moment.duration(end.diff(start)).asMinutes();
+        created = Math.ceil(created);
+        created += 'm';
+      } else {
+        created = `${Math.ceil(created)}h`;
+      }
+
+      const row = `<div class="row no-gutters">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11">
+                      <div class="row">
+                        <div class="col">
+                          <span style="color:white;font-weight:bold">${author}</span>
+                          <span style="color:#8899a6;font-size:13px">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;${created}</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col" style="color:white;font-size:15px">${text}</div>
+                      </div>
+                    </div>
+                  </div>`;
+
+      $('#twitr-feed-timeline').prepend(row);
     }
   },
 };

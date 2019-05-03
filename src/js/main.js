@@ -86,12 +86,14 @@ $(document).ready(() => {
     const dataURI = tweetImgShow.attr('src');
 
     try {
-      await TWEET.create(text, dataURI);
+      await TWEET.createTweet(text, dataURI);
     } catch (err) {
       alert(err.message);
     }
 
     btn.html(btn.data('original-text'));
   });
+
+  TWEET.downloadTweets().then(TWEET.displayTweets);
 
 });
