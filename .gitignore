@@ -80,5 +80,5 @@ typings/
 
 __pycache__
 package-lock.json
-src/js/main.min.js
-src/js/main.js
+src/main.min.js
+src/main.js
