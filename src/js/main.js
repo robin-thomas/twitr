@@ -72,17 +72,4 @@ $(document).ready(() => {
     tweetImgShow.attr('src', '');
   });
 
-  // NEAR initialization code.
-  // const init = async () => {
-  //   try {
-  //     config = await nearlib.dev.getConfig();
-  //     contractId = config.contractName;
-  //     baseUrl = config.appUrl;
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // };
-  //
-  // init().catch(console.log);
-
 });

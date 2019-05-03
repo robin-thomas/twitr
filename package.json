@@ -24,6 +24,7 @@
     "grunt-eslint": "^21.0.0"
   },
   "dependencies": {
-    "ipfs-http-client": "^30.1.4"
+    "ipfs-http-client": "^30.1.4",
+    "moment": "^2.24.0"
   }
 }
