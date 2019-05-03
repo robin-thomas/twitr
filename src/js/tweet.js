@@ -62,8 +62,15 @@ const TWEET = {
   },
 
   displayTweets: (tweets) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
     for (const tweet of tweets) {
-      const text = tweet.text;
+      const tweetText = 'Find me at http://www.example.com and also at http://stackoverflow.com Hello all are you aaaa';
+
+      const text = tweetText.replace(urlRegex, (url) => {
+        return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
+      });
+
       const author = tweet.author;
       const img = tweet.img;
 
@@ -93,6 +100,10 @@ const TWEET = {
                       <div class="row">
                         <div class="col" style="color:white;font-size:15px">${text}</div>
                       </div>
+                      ${img !== undefined ? `<div class="row"><div class="col">
+                                              <img style="margin-top:10px;width:100%;border-radius:10px;border:1px solid #38444d"
+                                                   src="${img}" />
+                                             </div></div>` : ''}
                     </div>
                   </div>`;
 
