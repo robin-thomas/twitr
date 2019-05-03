@@ -8,6 +8,7 @@ $(document).ready(() => {
   const tweetAddPicReal = $('#tweet-img');
   const tweetImgShow = $('#tweet-img-show');
   const tweetImgDelete = $('#tweet-img-delete');
+  const confirmTweet = $('#confirm-tweet');
 
   // Show the tweet input window.
   tweetBtn.on('click', () => {
@@ -70,6 +71,18 @@ $(document).ready(() => {
     tweetImgDelete.fadeOut();
     tweetImgShow.fadeOut();
     tweetImgShow.attr('src', '');
+  });
+
+  confirmTweet.on('click', () => {
+    const btn = confirmTweet;
+    const loadingText = '<i class="fas fa-spinner fa-spin"></i>';
+    btn.data('original-text', btn.html());
+    btn.html(loadingText);
+
+    // Validate the tweet.
+    const text = tweetArea.val();
+
+    btn.html(btn.data('original-text'));
   });
 
 });

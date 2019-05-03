@@ -1,9 +1,10 @@
 const moment = require('moment');
 
+const IMG = require('./img.js');
 const IPFS = require('./ipfs.js');
 
 const TWEET = {
-  create: async (text, author, imgFile) => {
+  create: async (text, author, dataURI) => {
     const json = {
       text: text,
       author: author,
@@ -11,7 +12,19 @@ const TWEET = {
     };
 
     try {
-      return await IPFS.uploadTweet(json, imgFile);
+      const imgBlob = IMG.dataURIToBlob(dataURI);
+
+      return await IPFS.uploadTweet(json, imgBlob);
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  validate: (text) => {
+    try {
+      if (text === null || text === undefined || text.trim().length === 0) {
+        throw new Error('Tweet text cannot be empty!');
+      }
     } catch (err) {
       throw err;
     }

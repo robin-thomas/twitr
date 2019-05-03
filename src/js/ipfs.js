@@ -6,7 +6,7 @@ const ipfs = new ipfsApi({
   protocol: 'https',
 });
 
-const upload = (file) => {
+const upload = (blob) => {
   return new Promise((resolve, reject) => {
     let reader = new window.FileReader();
     reader.onloadend = async () => {
@@ -20,15 +20,15 @@ const upload = (file) => {
         }
       });
     }
-    reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(blob);
   });
 };
 
 const IPFS = {
-  uploadTweet: async (json, imgFile) => {
+  uploadTweet: async (json, imgBlob) => {
     try {
       // Upload the image to IPFS and get its url.
-      const imgHash = await upload(imgFile);
+      const imgHash = await upload(imgBlob);
       const imgUrl = `https://ipfs.infura.io/ipfs/${imgHash}`;
 
       // Upload the tweet to IPFS.
