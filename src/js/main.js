@@ -1,4 +1,5 @@
 const TWEET = require('./tweet.js');
+const NEAR = require('./near.js');
 
 $(document).ready(() => {
 
@@ -95,5 +96,6 @@ $(document).ready(() => {
   });
 
   TWEET.downloadTweets().then(TWEET.displayTweets);
+  NEAR.init().then(console.log);
 
 });

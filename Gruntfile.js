@@ -4,14 +4,11 @@ module.exports = (grunt) => {
     pkg: grunt.file.readJSON('package.json'),
     eslint: {
       target: [
-        './src/js/img.js',
-        './src/js/ipfs.js',
-        './src/js/main.js',
-        './src/js/tweet.js'
+        './src/js/*.js'
       ],
       options: {
         configFile: './eslint.json',
-        globals: ['$'],
+        globals: ['$', 'nearlib'],
       },
     },
     browserify: {

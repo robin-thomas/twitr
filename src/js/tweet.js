@@ -1,19 +1,24 @@
 const moment = require('moment');
+const faker = require('faker');
 
 const IMG = require('./img.js');
 const IPFS = require('./ipfs.js');
 
 const TWEET = {
-  createTweet: async (text, dataURI, author = 'Robin') => {
+  createTweet: async (text, dataURI, accountId = 12345) => {
     try {
       // Validate.
-      TWEET.validate(text);
+      TWEET.validateTweet(text);
+
+      faker.seed(accountId);
+      const author = faker.random.words();
 
       // Construct the tweet object.
       const json = {
         text: text,
         author: author,
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+        avatar: `https://avatars.dicebear.com/v2/gridy/${accountId}.svg`,
       };
       const imgBlob = dataURI !== undefined ? IMG.dataURIToBlob(dataURI) : null;
 
@@ -37,7 +42,10 @@ const TWEET = {
     }
   },
 
-  downloadTweets: async (hashes = ['QmYYaEWAdjkn2VdtAuBj6akHjkMeBjrCstyCn9LXfhgYTd']) => {
+  downloadTweets: async (hashes = [
+    'QmYYaEWAdjkn2VdtAuBj6akHjkMeBjrCstyCn9LXfhgYTd',
+    'Qma5nPiSyBRGwEj6VRPPV3MZCeog13LMDG9KCDgwFVegia'
+  ]) => {
     try {
       let results = [];
 
@@ -65,9 +73,7 @@ const TWEET = {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
 
     for (const tweet of tweets) {
-      const tweetText = 'Find me at http://www.example.com and also at http://stackoverflow.com Hello all are you aaaa';
-
-      const text = tweetText.replace(urlRegex, (url) => {
+      const text = tweet.text.replace(urlRegex, (url) => {
         return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
       });
 
@@ -89,7 +95,12 @@ const TWEET = {
       }
 
       const row = `<div class="row no-gutters">
-                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                      ${tweet.avatar !== undefined ? `<img src="${tweet.avatar}" style="width:30px;height:30px" />` :
+                        `<svg height="30" width="30">
+                          <circle cx="15" cy="15" r="14" stroke="black" stroke-width="1" fill="#1da1f2" />
+                        </svg>`}
+                    </div>
                     <div class="col-md-11">
                       <div class="row">
                         <div class="col">
