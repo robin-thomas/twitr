@@ -14,6 +14,8 @@ $(document).ready(() => {
   const confirmTweet = $('#confirm-tweet');
   const tweetTextareaDisable = $('#tweet-textarea-disable');
 
+  const twitrLogin = $('#twitr-login');
+
   // Show the tweet input window.
   tweetBtn.on('click', () => {
     tweetInputDialog.modal('show');
@@ -100,6 +102,8 @@ $(document).ready(() => {
   });
 
   TWEET.downloadTweets().then(TWEET.displayTweets);
-  // NEAR.init().then(console.log);
+  NEAR.init().then(console.log);
+
+  twitrLogin.on('click', NEAR.login);
 
 });
