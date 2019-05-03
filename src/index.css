@@ -92,8 +92,7 @@ body {
   background: #10171e;
 }
 
-#tweet-dialog-textarea {
-  padding:10px;
+.tweet-dialog-textarea-div {
   color:#9197a3;
   background:#182430;
   border:0;
@@ -101,6 +100,45 @@ body {
   outline:0;
   border-bottom: 3px solid #1da1f2;
   resize: none;
+}
+
+#tweet-dialog-textarea {
+  color:#9197a3;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  outline:0;
+  resize: none;
+}
+
+.tweet-img-wrapper {
+  width: 100%;
+  overflow:hidden;
+  padding: 10px;
+  position: relative;
+}
+
+#tweet-img-delete {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 30px;
+  height: 30px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 25px;
+  z-index:100;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  display: none;
+}
+
+#tweet-img-show {
+  width: 100%;
+  border-radius: 10px;
+  display: none;
 }
 
 .glyphicon-refresh-animate {
