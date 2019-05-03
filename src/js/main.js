@@ -12,6 +12,7 @@ $(document).ready(() => {
   const tweetImgShow = $('#tweet-img-show');
   const tweetImgDelete = $('#tweet-img-delete');
   const confirmTweet = $('#confirm-tweet');
+  const tweetTextareaDisable = $('#tweet-textarea-disable');
 
   // Show the tweet input window.
   tweetBtn.on('click', () => {
@@ -83,6 +84,8 @@ $(document).ready(() => {
     btn.data('original-text', btn.html());
     btn.html(loadingText);
 
+    tweetTextareaDisable.show();
+
     const text = tweetArea.val();
     const dataURI = tweetImgShow.attr('src');
 
@@ -92,10 +95,11 @@ $(document).ready(() => {
       alert(err.message);
     }
 
+    tweetTextareaDisable.hide();
     btn.html(btn.data('original-text'));
   });
 
   TWEET.downloadTweets().then(TWEET.displayTweets);
-  NEAR.init().then(console.log);
+  // NEAR.init().then(console.log);
 
 });
