@@ -52,7 +52,7 @@ body {
 
 #content .twitr-feed > div > .row {
   min-height: 50px;
-  padding: 15px 10px;
+  padding: 15px 0;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: rgba(181,187,202,.1);
@@ -67,6 +67,7 @@ body {
 
 #content .twitr-feed .twitr-feed-tweet {
   cursor: pointer;
+  background: #17222F;
 }
 
 #content .twitr-feed .twitr-feed-tweet-text {
