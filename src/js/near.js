@@ -4,7 +4,7 @@ const twitrAccountId = $('#near-accountid');
 const NEAR = {
   walletAccount: null,
   accountId: '',
-  contractId: 'metanear-dev-005',
+  contractId: 'near-twitr',
   appTitle: 'twitr',
   contract: null,
   baseUrl: 'https://wallet.nearprotocol.com/',
