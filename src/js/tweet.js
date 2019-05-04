@@ -29,9 +29,10 @@ const TWEET = {
       };
 
       // save the tweet in the contract.
-      const tweetCreated = await NEAR.contract.addTweet({
+      const result = await NEAR.contract.addTweet({
         tweet: tweet,
       });
+      const tweetCreated = result.lastResult;
       console.log(tweetCreated);
 
       // display it as row in UI (at the top).
