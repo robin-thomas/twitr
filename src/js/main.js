@@ -124,7 +124,9 @@ $(document).ready(() => {
         console.log(e);
         console.log(parent);
 
-        const tweet = JSON.parse(decodeURIComponent(parent.find('input.tweet-encoded').val()));
+        const json = decodeURIComponent(parent.find('.tweet-encoded').val());
+        console.log(json);
+        const tweet = JSON.parse(json);
         const likes = await TWEET.toggleLike(tweet.id);
 
         // Update the "like" UI.
