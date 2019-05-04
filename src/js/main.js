@@ -113,7 +113,7 @@ $(document).ready(() => {
     }
   });
 
-  $('#twitr-feed-timeline').on('click', '.tweet-action-like', (e) => {
+  $('#twitr-feed-timeline').on('click', '.tweet-action-like', async (e) => {
     const account = NEAR.getAccount();
     if (account.trim().length === 0) {
       NEAR.login();
