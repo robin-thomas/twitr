@@ -61,7 +61,7 @@ export function toggleLike(id: i32): void {
 
 // To get the logs.
 export function logState(): void {
-  let keys = storage.keys('log:');
+  let keys = storage.keys('');
   keys.forEach(key => {
     near.log(key + " -> " + storage.get<string>(key));
   });
