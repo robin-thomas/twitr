@@ -46,7 +46,7 @@ const NEAR = {
       NEAR.contractId,
       NEAR.appTitle,
       NEAR.appUrl,
-      NEAR.baseUrl,
+      NEAR.appUrl,
     );
   },
 
@@ -55,7 +55,7 @@ const NEAR = {
     NEAR.walletAccount.signOut();
 
     // Forcing redirect.
-    window.location.replace(NEAR.baseUrl);
+    window.location.replace(NEAR.appUrl);
   },
 };
 
