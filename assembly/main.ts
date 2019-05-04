@@ -29,10 +29,11 @@ export function addTweet(tweet: Tweet): Tweet {
 
 // Returns an array of N messages from a given position (defaults to end).
 // NOTE: This is a view method. Which means it should NOT modify the state.
-export function getTweets(end:i32 = -1): Array<Tweet> {
-  let numTweets = min(TWEET_LIMIT, tweets.length);
+export function getTweets(end: i32): Array<Tweet> {
+  end = end || tweets.length;
 
-  let startIndex = (end === -1 ? tweets.length : end) - numTweets;
+  let numTweets = min(TWEET_LIMIT, tweets.length);
+  let startIndex = end - numTweets;
 
   let result = new Array<Tweet>(numTweets);
   for (let i = 0; i < numTweets; i++) {
@@ -57,12 +58,4 @@ export function toggleLike(id: i32): void {
     // Add a like.
     likesMap.set(context.sender, "");
   }
-}
-
-// To get the logs.
-export function logState(): void {
-  let keys = storage.keys('');
-  keys.forEach(key => {
-    near.log(key + " -> " + storage.get<string>(key));
-  });
 }

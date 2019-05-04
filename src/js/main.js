@@ -102,8 +102,7 @@ $(document).ready(() => {
     btn.html(btn.data('original-text'));
   });
 
-  NEAR.init().then(() => TWEET.downloadTweets()).then(TWEET.displayTweets)
-      .then(() => NEAR.contract.logState).then(console.log);
+  NEAR.init().then(() => TWEET.downloadTweets()).then(TWEET.displayTweets);
 
   // Login/logout.
   twitrLogin.on('click', () => {
