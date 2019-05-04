@@ -123,8 +123,12 @@ $(document).ready(() => {
         const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
         console.log(e);
         console.log(parent);
+
         const tweet = JSON.parse(decodeURIComponent(parent.find('input.tweet-encoded').val()));
-        TWEET.toggleLike(tweet.id);
+        const likes = await TWEET.toggleLike(tweet.id);
+
+        // Update the "like" UI.
+        $(e.currentTarget).next().html(`&nbsp;&nbsp;${likes}`);
       } catch (err) {
         console.log(err);
       }

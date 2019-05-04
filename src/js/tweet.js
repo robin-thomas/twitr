@@ -122,7 +122,7 @@ const TWEET = {
                         <div class="col">
                           <span>
                             <i class="far fa-heart tweet-action-like" style="cursor:pointer"></i>
-                            &nbsp;&nbsp;${tweet.likes === undefined ? 0 : tweet.likes}
+                            <span>&nbsp;&nbsp;${tweet.likes === undefined ? 0 : tweet.likes}</span>
                           </span>
                     </div>
                   </div>`;
@@ -133,7 +133,7 @@ const TWEET = {
 
   toggleLike: async (tweetId) => {
     try {
-      await NEAR.contract.toggleLike({
+      return await NEAR.contract.toggleLike({
         id: tweetId,
       });
     } catch (err) {

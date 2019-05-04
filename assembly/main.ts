@@ -22,8 +22,11 @@ let tweets = collections.vector<Tweet>("t");
 export function addTweet(tweet: Tweet): Tweet {
   tweet.id = tweets.length;
   tweet.sender = context.sender;
-
   tweets.push(tweet);
+
+  let likesMap = collections.map<string, string>('likes:' + tweet.id.toString());
+  likesMap.set('.count', 'likeCount_' + tweet.id.toString());
+
   return tweet;
 }
 
@@ -48,7 +51,7 @@ export function getTweets(end: i32): Array<Tweet> {
 // Update the "likes" count of a tweet.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function toggleLike(id: i32): void {
+export function toggleLike(id: i32): i32 {
   let likesMap = collections.map<string, string>('likes:' + id.toString());
 
   if (likesMap.contains(context.sender)) {
@@ -58,4 +61,6 @@ export function toggleLike(id: i32): void {
     // Add a like.
     likesMap.set(context.sender, "");
   }
+
+  return likesMap.count();
 }

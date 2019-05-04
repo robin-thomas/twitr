@@ -684,7 +684,6 @@ export namespace collections {
      */
     constructor(prefix: string) {
       this._elementPrefix = prefix + _KEY_ELEMENT_SUFFIX;
-      this.set('.count', 'likeCount_' + prefix);
     }
 
     /**
