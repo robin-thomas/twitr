@@ -133,9 +133,13 @@ const TWEET = {
 
   toggleLike: async (tweetId) => {
     try {
-      return await NEAR.contract.toggleLike({
+      const result = await NEAR.contract.toggleLike({
         id: tweetId,
       });
+
+      console.log(result);
+
+      return result.lastResult;
     } catch (err) {
       throw err;
     }
