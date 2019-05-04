@@ -94,6 +94,7 @@ $(document).ready(() => {
     try {
       await TWEET.createTweet(text, dataURI);
     } catch (err) {
+      console.log(err);
       alert(err.message);
     }
 
