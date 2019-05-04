@@ -33,13 +33,6 @@ const NEAR = {
       ));
 
       // Initializing the contract.
-      // For now we need to specify method names from the contract manually.
-      // NEAR.contract = await near.loadContract(NEAR.contractId, {
-      //   viewMethods: ['getTweets'],
-      //   changeMethods: ['addTweet'],
-      //   sender: accountId,
-      // });
-
       NEAR.contract = await near.loadContract(NEAR.contractId, {
         viewMethods: ['getTweets'],
         changeMethods: ['addTweet', 'toggleLike'],

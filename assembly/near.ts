@@ -684,6 +684,7 @@ export namespace collections {
      */
     constructor(prefix: string) {
       this._elementPrefix = prefix + _KEY_ELEMENT_SUFFIX;
+      this.set('.count', 'likeCount_' + prefix);
     }
 
     /**
@@ -724,6 +725,11 @@ export namespace collections {
      * @param key Key to remove.
      */
     delete(key: K): void {
+      if (this.contains(key)) {
+        let countKey = this._key('.count');
+        storage.set<i32>(countKey, storage.get<i32>(countKey) - 1);
+      }
+
       storage.delete(this._key(key));
     }
 
@@ -742,7 +748,16 @@ export namespace collections {
      * @param value The new value of the element.
      */
     set(key: K, value: V): void {
+      if (!this.contains(key)) {
+        let countKey = this._key('.count');
+        storage.set<i32>(countKey, storage.get<i32>(countKey, 0) + 1);
+      }
+
       storage.set<V>(this._key(key), value);
+    }
+
+    count(): i32 {
+      return storage.get<i32>(this._key('.count'), 0);
     }
   }
 

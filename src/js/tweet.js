@@ -26,7 +26,8 @@ const TWEET = {
       const tweet = await IPFS.uploadTweet(json, imgBlob);
       console.log(tweet);
 
-      // TODO: save the tweet in the contract.
+      // save the tweet in the contract.
+      await NEAR.contract.addTweet(text, author, json.created, json.avatar, 0, tweet.img);
 
     } catch (err) {
       throw err;
@@ -126,6 +127,14 @@ const TWEET = {
                   </div>`;
 
       $('#twitr-feed-timeline').prepend(row);
+    }
+  },
+
+  toggleLike: async (tweetId, like = 1) => {
+    try {
+      await NEAR.contract.toggleLike(tweetId, like);
+    } catch (err) {
+      throw err;
     }
   },
 };

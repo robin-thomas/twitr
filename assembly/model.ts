@@ -1,4 +1,4 @@
-// Exporting a new class PostedMessage so it can be used outside of this file.
+// Exporting a new class Tweet so it can be used outside of this file.
 export class Tweet {
   id: i32;
   sender: string;
@@ -6,6 +6,6 @@ export class Tweet {
   author: string;
   created: string;
   avatar: string;
-  likes: i32;
   img: string;
+  likes: i32;
 }

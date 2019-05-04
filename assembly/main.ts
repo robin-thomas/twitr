@@ -28,7 +28,6 @@ export function addTweet(text: string, author: string, created: string, avatar: 
   tweet.author = author;
   tweet.created = created;
   tweet.avatar = avatar;
-  tweet.likes = likes;
   tweet.img = img;
 
   tweets.push(tweet);
@@ -44,6 +43,9 @@ export function getTweets(end:i32 = -1): Array<Tweet> {
   let result = new Array<Tweet>(numTweets);
   for (let i = 0; i < numTweets; i++) {
     result[i] = tweets[i + startIndex];
+
+    let likesMap = collections.map<string, string>('likes:' + result[i].id.toString());
+    result[i].likes = likesMap.count();
   }
   return result;
 }
@@ -51,6 +53,14 @@ export function getTweets(end:i32 = -1): Array<Tweet> {
 // Update the "likes" count of a tweet.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function toggleLike(id:i32, like:i32 = 1): void {
-  tweets[id].likes += like;
+export function toggleLike(id: i32): void {
+  let likesMap = collections.map<string, string>('likes:' + id.toString());
+
+  if (likesMap.contains(context.sender)) {
+    // Like already exists. Remove it.
+    likesMap.delete(context.sender);
+  } else {
+    // Add a like.
+    likesMap.set(context.sender, "");
+  }
 }
