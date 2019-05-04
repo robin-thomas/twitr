@@ -3,7 +3,7 @@ const NEAR = {
   contractId: 'metanear-dev-005',
   appTitle: 'twitr',
   contract: null,
-  baseUrl: 'https://wallet.nearprotocol.com/',
+  baseUrl: 'https://twitr-near.herokuapp.com/',
   nodeUrl: 'https://studio.nearprotocol.com/devnet',
 
   init: async () => {
