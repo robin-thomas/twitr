@@ -119,10 +119,15 @@ $(document).ready(() => {
       NEAR.login();
     } else {
       // update tweet.
-      const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
-      console.log(e);
-      const tweet = JSON.parse(decodeURIComponent(parent.find('input.tweet-encoded').val()));
-      TWEET.toggleLike(tweet.id);
+      try {
+        const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
+        console.log(e);
+        console.log(parent);
+        const tweet = JSON.parse(decodeURIComponent(parent.find('input.tweet-encoded').val()));
+        TWEET.toggleLike(tweet.id);
+      } catch (err) {
+        console.log(err);
+      }
     }
   })
 
