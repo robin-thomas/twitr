@@ -25,28 +25,12 @@ const upload = (blob) => {
 };
 
 const IPFS = {
-  uploadTweet: async (json, imgBlob) => {
+  uploadImage: async (imgBlob) => {
     try {
       // Upload the image to IPFS and get its url.
       const imgHash = await upload(imgBlob);
-      const imgUrl = `https://ipfs.infura.io/ipfs/${imgHash}`;
+      return `https://ipfs.infura.io/ipfs/${imgHash}`;
 
-      // Upload the tweet to IPFS.
-      json.img = imgUrl;
-      const buffer = Buffer.from(JSON.stringify(json));
-      const hash = await ipfs.add(buffer);
-
-      return hash[0].hash;
-
-    } catch (err) {
-      throw err;
-    }
-  },
-
-  downloadTweet: async (hash) => {
-    try {
-      const results = await ipfs.get(hash);
-      return JSON.parse(results[0].content.toString());
     } catch (err) {
       throw err;
     }
