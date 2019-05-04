@@ -12,6 +12,7 @@ export class JSONEncoder {
     serialize(): Uint8Array {
         // TODO: Write directly to UTF8 bytes
         let result = this.toString();
+        console.log(result);
         let utf8ptr = result.toUTF8();
         let buffer = new Uint8Array(result.lengthUTF8 - 1);
         memory.copy(buffer.buffer.data, utf8ptr, buffer.byteLength);
