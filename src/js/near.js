@@ -1,3 +1,5 @@
+const twitrLogin = $('#twitr-login');
+
 const NEAR = {
   walletAccount: null,
   contractId: 'metanear-dev-005',
@@ -36,6 +38,15 @@ const NEAR = {
         changeMethods: ["move", "deploy", "init", "addCellInfo", "addRenderInfo", "addImageUrl"],
         sender: accountId,
       });
+
+      // Loggedin
+      if (NEAR.walletAccount.isSignedIn()) {
+        twitrLogin.removeClass('twitr-login').addClass('twitr-logout');
+        twitrLogin.html('Logout');
+      } else {
+        twitrLogin.removeClass('twitr-logout').addClass('twitr-login');
+        twitrLogin.html('Login');
+      }
     } catch (err) {
       throw err;
     }

@@ -104,6 +104,13 @@ $(document).ready(() => {
   TWEET.downloadTweets().then(TWEET.displayTweets);
   NEAR.init().then(console.log);
 
-  twitrLogin.on('click', NEAR.login);
+  // Login/logout.
+  twitrLogin.on('click', () => {
+    if (twitrLogin.hasClass('twitr-login')) {
+      NEAR.login();
+    } else {
+      NEAR.logout();
+    }
+  });
 
 });
