@@ -41,8 +41,8 @@ const NEAR = {
       // });
 
       NEAR.contract = await near.loadContract(NEAR.contractId, {
-        viewMethods: ["lookAround", "getPlayer", "getCellInfo", "getRenderInfo", "getImageUrl"],
-        changeMethods: ["move", "deploy", "init", "addCellInfo", "addRenderInfo", "addImageUrl"],
+        viewMethods: ['getTweets'],
+        changeMethods: ['addTweet', 'toggleLike'],
         sender: NEAR.accountId,
       });
 

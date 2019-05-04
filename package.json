@@ -1,9 +1,10 @@
 {
-  "name": "twitr",
+  "name": "@wasm/twitr",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy:contract": "mkdir -p out/ && gulp && near deploy",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "grunt"
@@ -19,10 +20,15 @@
   },
   "homepage": "https://github.com/robin-thomas/twitr#readme",
   "devDependencies": {
+    "assemblyscript": "github:nearprotocol/assemblyscript.git",
+    "assemblyscript-json": "github:nearprotocol/assemblyscript-json",
     "grunt": "^1.0.4",
     "grunt-browserify": "^5.3.0",
     "grunt-contrib-uglify-es": "^3.3.0",
-    "grunt-eslint": "^21.0.0"
+    "grunt-eslint": "^21.0.0",
+    "gulp": "^4.0.1",
+    "near-runtime-ts": "github:nearprotocol/near-runtime-ts",
+    "near-shell": "github:nearprotocol/near-shell"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -32,5 +38,10 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "node-fetch": "^2.5.0"
+  },
+  "wasmStudio": {
+    "name": "NEAR twitr",
+    "description": "Twitter built on NEAR protocol with NEAR DevNet Wallet integration on blockchain.",
+    "icon": "typescript-lang-file-icon"
   }
 }
