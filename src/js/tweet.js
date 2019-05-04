@@ -25,19 +25,19 @@ const TWEET = {
         avatar: `https://avatars.dicebear.com/v2/gridy/${accountId}.svg`,
         img: imgUrl,
       };
-      console.log(tweet);
 
       // save the tweet in the contract.
-      await NEAR.contract.addTweet(
+      const tweetCreated = await NEAR.contract.addTweet(
         tweet.text,
         tweet.author,
         tweet.created,
         tweet.avatar,
         tweet.img
       );
+      console.log(tweetCreated);
 
       // display it as row in UI (at the top).
-      TWEET.displayTweets([tweet]);
+      TWEET.displayTweets([tweetCreated]);
 
     } catch (err) {
       throw err;
