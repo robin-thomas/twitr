@@ -1,4 +1,5 @@
 const twitrLogin = $('#twitr-login');
+const twitrAccountId = $('#near-accountid');
 
 const NEAR = {
   walletAccount: null,
@@ -18,6 +19,7 @@ const NEAR = {
 
       // Getting the Account ID. If unauthorized yet, it's just empty string.
       const accountId = NEAR.walletAccount.getAccountId();
+      twitrAccountId.html(accountId);
 
       // Initializing near and near client from the nearlib.
       const near = new nearlib.Near(new nearlib.NearClient(
