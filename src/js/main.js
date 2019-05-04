@@ -101,8 +101,7 @@ $(document).ready(() => {
     btn.html(btn.data('original-text'));
   });
 
-  TWEET.downloadTweets().then(TWEET.displayTweets);
-  NEAR.init().then(console.log);
+  NEAR.init().then(() => TWEET.downloadTweets()).then(TWEET.displayTweets);
 
   // Login/logout.
   twitrLogin.on('click', () => {
@@ -113,12 +112,16 @@ $(document).ready(() => {
     }
   });
 
-  $('#twitr-feed-timeline').on('click', '.tweet-action-like', () => {
+  $('#twitr-feed-timeline').on('click', '.tweet-action-like', (e) => {
     const account = NEAR.getAccount();
     if (account.trim().length === 0) {
       NEAR.login();
     } else {
       // update tweet.
+      const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
+      console.log(e);
+      const tweet = JSON.parse(decodeURIComponent(parent.find('input.tweet-encoded').val()));
+      TWEET.toggleLike(tweet.id);
     }
   })
 

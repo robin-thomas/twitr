@@ -19,7 +19,7 @@ let tweets = collections.vector<Tweet>("t");
 // Adds a new tweet under the name of the sender's account id.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function addTweet(text: string, author: string, created: string, avatar: string, likes: i32, img: string): void {
+export function addTweet(text: string, author: string, created: string, avatar: string, img: string): void {
   // Create a new instance of Tweet object
   let tweet = new Tweet();
   tweet.id = tweets.length;

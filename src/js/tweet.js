@@ -3,6 +3,7 @@ const faker = require('faker');
 
 const IMG = require('./img.js');
 const IPFS = require('./ipfs.js');
+const NEAR = require('./near.js');
 
 const TWEET = {
   createTweet: async (text, dataURI, accountId = 12345) => {
@@ -13,21 +14,29 @@ const TWEET = {
       faker.seed(accountId);
       const author = faker.random.words();
 
-      // Construct the tweet object.
-      const json = {
+      // Upload the image to IPFS.
+      const imgBlob = dataURI !== undefined ? IMG.dataURIToBlob(dataURI) : null;
+      const imgUrl = await IPFS.uploadImage(imgBlob);
+
+      const tweet = {
         text: text,
         author: author,
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
         avatar: `https://avatars.dicebear.com/v2/gridy/${accountId}.svg`,
-        likes: 0,
+        img: imgUrl,
       };
-      const imgBlob = dataURI !== undefined ? IMG.dataURIToBlob(dataURI) : null;
-
-      const tweet = await IPFS.uploadTweet(json, imgBlob);
-      console.log(tweet);
 
       // save the tweet in the contract.
-      await NEAR.contract.addTweet(text, author, json.created, json.avatar, 0, tweet.img);
+      await NEAR.contract.addTweet(
+        tweet.text,
+        tweet.author,
+        tweet.created,
+        tweet.avatar,
+        tweet.img
+      );
+
+      // display it as row in UI (at the top).
+      TWEET.displayTweets([tweet]);
 
     } catch (err) {
       throw err;
@@ -44,28 +53,14 @@ const TWEET = {
     }
   },
 
-  downloadTweets: async (hashes = [
-    'QmYYaEWAdjkn2VdtAuBj6akHjkMeBjrCstyCn9LXfhgYTd',
-    'Qma5nPiSyBRGwEj6VRPPV3MZCeog13LMDG9KCDgwFVegia'
-  ]) => {
+
+  // hashes = [
+  //   'QmYYaEWAdjkn2VdtAuBj6akHjkMeBjrCstyCn9LXfhgYTd',
+  //   'Qma5nPiSyBRGwEj6VRPPV3MZCeog13LMDG9KCDgwFVegia'
+  // ]
+  downloadTweets: async () => {
     try {
-      let results = [];
-
-      for (const hash of hashes) {
-
-        let result = null;
-        try {
-          result = await IPFS.downloadTweet(hash);
-        } catch (err) {
-          continue;
-        }
-
-        if (result) {
-          results.push(result);
-        }
-      }
-
-      return results;
+      return await NEAR.contract.getTweets();
     } catch (err) {
       throw err;
     }
@@ -96,7 +91,11 @@ const TWEET = {
         created = `${Math.ceil(created)}h`;
       }
 
+      // Encode the tweet.
+      const tweetEncoded = encodeURIComponent(JSON.stringify(tweet));
+
       const row = `<div class="row no-gutters">
+                    <input type="hidden" class="tweet-encoded" values="${tweetEncoded}" />
                     <div class="col-md-1">
                       ${tweet.avatar !== undefined ? `<img src="${tweet.avatar}" style="width:30px;height:30px" />` :
                         `<svg height="30" width="30">
@@ -130,9 +129,9 @@ const TWEET = {
     }
   },
 
-  toggleLike: async (tweetId, like = 1) => {
+  toggleLike: async (tweetId) => {
     try {
-      await NEAR.contract.toggleLike(tweetId, like);
+      await NEAR.contract.toggleLike(tweetId);
     } catch (err) {
       throw err;
     }
