@@ -3,8 +3,9 @@ const NEAR = {
   contractId: 'metanear-dev-005',
   appTitle: 'twitr',
   contract: null,
-  baseUrl: 'https://twitr-near.herokuapp.com/',
+  baseUrl: 'https://wallet.nearprotocol.com/',
   nodeUrl: 'https://studio.nearprotocol.com/devnet',
+  appUrl: 'https://twitr-near.herokuapp.com/',
 
   init: async () => {
     try {
@@ -44,7 +45,7 @@ const NEAR = {
     NEAR.walletAccount.requestSignIn(
       NEAR.contractId,
       NEAR.appTitle,
-      NEAR.baseUrl,
+      NEAR.appUrl,
       NEAR.baseUrl,
     );
   },
