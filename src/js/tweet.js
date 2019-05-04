@@ -25,6 +25,7 @@ const TWEET = {
         avatar: `https://avatars.dicebear.com/v2/gridy/${accountId}.svg`,
         img: imgUrl,
       };
+      console.log(tweet);
 
       // save the tweet in the contract.
       await NEAR.contract.addTweet(
