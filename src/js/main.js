@@ -121,12 +121,11 @@ $(document).ready(() => {
       // update tweet.
       try {
         const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
-        console.log(e);
-        console.log(parent);
-
         const json = decodeURIComponent(parent.find('.tweet-encoded').val());
-        console.log(json);
         const tweet = JSON.parse(json);
+
+
+        $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
         const likes = await TWEET.toggleLike(tweet.id);
 
         // Update the "like" UI.
