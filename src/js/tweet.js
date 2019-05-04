@@ -19,6 +19,7 @@ const TWEET = {
         author: author,
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
         avatar: `https://avatars.dicebear.com/v2/gridy/${accountId}.svg`,
+        likes: 0,
       };
       const imgBlob = dataURI !== undefined ? IMG.dataURIToBlob(dataURI) : null;
 
@@ -115,6 +116,12 @@ const TWEET = {
                                               <img style="margin-top:10px;width:100%;border-radius:10px;border:1px solid #38444d"
                                                    src="${img}" />
                                              </div></div>` : ''}
+                      <div class="row" style="margin-top:10px;color:#8899a6;font-size:15px">
+                        <div class="col">
+                          <span>
+                            <i class="far fa-heart tweet-action-like" style="cursor:pointer"></i>
+                            &nbsp;&nbsp;${tweet.likes === undefined ? 0 : tweet.likes}
+                          </span>
                     </div>
                   </div>`;
 

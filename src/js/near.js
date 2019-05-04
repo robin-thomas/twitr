@@ -3,12 +3,17 @@ const twitrAccountId = $('#near-accountid');
 
 const NEAR = {
   walletAccount: null,
+  accountId: '',
   contractId: 'metanear-dev-005',
   appTitle: 'twitr',
   contract: null,
   baseUrl: 'https://wallet.nearprotocol.com/',
   nodeUrl: 'https://studio.nearprotocol.com/devnet',
   appUrl: 'https://twitr-near.herokuapp.com/',
+
+  getAccount: () => {
+    return NEAR.accountId;
+  },
 
   init: async () => {
     try {
@@ -18,8 +23,8 @@ const NEAR = {
       );
 
       // Getting the Account ID. If unauthorized yet, it's just empty string.
-      const accountId = NEAR.walletAccount.getAccountId();
-      twitrAccountId.html(accountId);
+      NEAR.accountId = NEAR.walletAccount.getAccountId();
+      twitrAccountId.html(NEAR.accountId);
 
       // Initializing near and near client from the nearlib.
       const near = new nearlib.Near(new nearlib.NearClient(
@@ -38,7 +43,7 @@ const NEAR = {
       NEAR.contract = await near.loadContract(NEAR.contractId, {
         viewMethods: ["lookAround", "getPlayer", "getCellInfo", "getRenderInfo", "getImageUrl"],
         changeMethods: ["move", "deploy", "init", "addCellInfo", "addRenderInfo", "addImageUrl"],
-        sender: accountId,
+        sender: NEAR.accountId,
       });
 
       // Loggedin

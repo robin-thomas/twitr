@@ -113,4 +113,13 @@ $(document).ready(() => {
     }
   });
 
+  $('#twitr-feed-timeline').on('click', '.tweet-action-like', () => {
+    const account = NEAR.getAccount();
+    if (account.trim().length === 0) {
+      NEAR.login();
+    } else {
+      // update tweet.
+    }
+  })
+
 });
