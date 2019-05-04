@@ -19,16 +19,9 @@ let tweets = collections.vector<Tweet>("t");
 // Adds a new tweet under the name of the sender's account id.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function addTweet(text: string, author: string, created: string, avatar: string, img: string): Tweet {
-  // Create a new instance of Tweet object
-  let tweet = new Tweet();
+export function addTweet(tweet: Tweet): Tweet {
   tweet.id = tweets.length;
   tweet.sender = context.sender;
-  tweet.text = text;
-  tweet.author = author;
-  tweet.created = created;
-  tweet.avatar = avatar;
-  tweet.img = img;
 
   tweets.push(tweet);
   return tweet;
@@ -64,4 +57,12 @@ export function toggleLike(id: i32): void {
     // Add a like.
     likesMap.set(context.sender, "");
   }
+}
+
+// To get the logs.
+export function logState(): void {
+  let keys = storage.keys('log:');
+  keys.forEach(key => {
+    near.log(key + " -> " + storage.get<string>(key));
+  });
 }

@@ -19,6 +19,8 @@ const TWEET = {
       const imgUrl = await IPFS.uploadImage(imgBlob);
 
       const tweet = {
+        id: -1, /* set in contract */
+        sender: '',  /* set in contract */
         text: text,
         author: author,
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
@@ -27,13 +29,7 @@ const TWEET = {
       };
 
       // save the tweet in the contract.
-      const tweetCreated = await NEAR.contract.addTweet(
-        tweet.text,
-        tweet.author,
-        tweet.created,
-        tweet.avatar,
-        tweet.img
-      );
+      const tweetCreated = await NEAR.contract.addTweet(tweet);
       console.log(tweetCreated);
 
       // display it as row in UI (at the top).
