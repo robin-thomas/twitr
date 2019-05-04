@@ -97,7 +97,7 @@ const TWEET = {
       const tweetEncoded = encodeURIComponent(JSON.stringify(tweet));
 
       const row = `<div class="row no-gutters">
-                    <input type="hidden" class="tweet-encoded" values="${tweetEncoded}" />
+                    <input type="hidden" class="tweet-encoded" value="${tweetEncoded}" />
                     <div class="col-md-1">
                       ${tweet.avatar !== undefined ? `<img src="${tweet.avatar}" style="width:30px;height:30px" />` :
                         `<svg height="30" width="30">
