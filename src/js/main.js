@@ -97,7 +97,7 @@ $(document).ready(() => {
     try {
       await TWEET.createTweet(text, dataURI);
 
-      tweetInputDialog.modal('show');
+      tweetInputDialog.modal('hide');
     } catch (err) {
       console.log(err);
       alert(err.message);
@@ -180,6 +180,11 @@ $(document).ready(() => {
         let tweet = JSON.parse(json);
 
         console.log(tweet);
+
+        if (tweet.author === NEAR.getAccount()) {
+          alert('You cannot retweet your own tweet!');
+          return;
+        }
 
         if (tweet.hasRetweeted) {
           alert('You have already retweeted this tweet!');
