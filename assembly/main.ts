@@ -3,7 +3,7 @@ export { memory };
 
 import { context, storage, near, collections } from "./near";
 
-import { Tweet } from "./model.near";
+import { Tweet, TweetLike, TweetRetweet } from "./model.near";
 
 // --- contract code goes below
 
@@ -44,10 +44,12 @@ export function getTweets(end: i32): Array<Tweet> {
 
     // Get the "likes" count.
     let likesMap = collections.map<string, string>('likes:' + result[i].id.toString());
+    result[i].hasLiked = likesMap.contains(context.sender);
     result[i].likes = likesMap.count();
 
     // Get the "retweets" count.
     let retweetsMap = collections.map<string, string>('retweets:' + result[i].id.toString());
+    result[i].hasRetweeted = retweetsMap.contains(context.sender);
     result[i].retweets = retweetsMap.count();
   }
 
@@ -57,7 +59,7 @@ export function getTweets(end: i32): Array<Tweet> {
 // Update the "likes" count of a tweet.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function toggleLike(id: i32): i32 {
+export function toggleLike(id: i32): TweetLike {
   let likesMap = collections.map<string, string>('likes:' + id.toString());
 
   if (likesMap.contains(context.sender)) {
@@ -68,13 +70,17 @@ export function toggleLike(id: i32): i32 {
     likesMap.set(context.sender, "");
   }
 
-  return likesMap.count();
+  let tweetLike = new TweetLike();
+  tweetLike.likes = likesMap.count();
+  tweetLike.hasLiked = likesMap.contains(context.sender);
+
+  return tweetLike;
 }
 
 // Update the "retweet" count of a tweet.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function retweet(id: i32): i32 {
+export function retweet(id: i32): TweetRetweet {
   let retweetsMap = collections.map<string, string>('retweets:' + id.toString());
 
   if (tweets[id].sender !== context.sender &&
@@ -86,7 +92,11 @@ export function retweet(id: i32): i32 {
     addTweet(tweets[id]);
   }
 
-  return retweetsMap.count();
+  let tweetRetweet = new TweetRetweet();
+  tweetRetweet.retweets = retweetsMap.count();
+  tweetRetweet.hasRetweeted = retweetsMap.contains(context.sender);
+
+  return tweetRetweet;
 }
 
 // Returns an array of all tweets of an account.
@@ -106,10 +116,12 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
 
       // Get the "likes" count.
       let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
+      result[j].hasLiked = likesMap.contains(context.sender);
       result[j].likes = likesMap.count();
 
       // Get the "retweets" count.
       let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
+      result[j].hasRetweeted = retweetsMap.contains(context.sender);
       result[j].retweets = retweetsMap.count();
     }
   }

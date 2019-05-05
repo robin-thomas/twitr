@@ -145,8 +145,6 @@ const TWEET = {
         id: tweetId,
       });
 
-      console.log(result);
-
       return result.lastResult;
     } catch (err) {
       throw err;

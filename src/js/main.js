@@ -139,10 +139,10 @@ $(document).ready(() => {
         const tweet = JSON.parse(json);
 
         $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
-        const likes = await TWEET.toggleLike(tweet.id);
+        const tweetLike = await TWEET.toggleLike(tweet.id);
 
         // Update the "like" UI.
-        $(e.currentTarget).next().html(`&nbsp;&nbsp;${likes}`);
+        $(e.currentTarget).next().html(`&nbsp;&nbsp;${tweetLike.likes}`);
       } catch (err) {
         console.log(err);
       }
@@ -160,11 +160,16 @@ $(document).ready(() => {
         const json = decodeURIComponent(parent.find('.tweet-encoded').val());
         const tweet = JSON.parse(json);
 
+        if (tweet.hasRetweeted) {
+          alert('You have already retweeted this tweet!');
+          return;
+        }
+
         $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
-        const retweets = await TWEET.retweet(tweet.id);
+        const tweetRetweet = await TWEET.retweet(tweet.id);
 
         // Update the "like" UI.
-        $(e.currentTarget).next().html(`&nbsp;&nbsp;${retweets}`);
+        $(e.currentTarget).next().html(`&nbsp;&nbsp;${tweetRetweet.retweets}`);
       } catch (err) {
         console.log(err);
       }
