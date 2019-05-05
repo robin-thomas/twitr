@@ -121,14 +121,20 @@ const TWEET = {
                       <div class="row" style="margin-top:10px;color:#8899a6;font-size:15px">
                         <div class="col-md-2">
                           <span>
-                            <i class="far fa-heart tweet-action-like" style="cursor:pointer"></i>
-                            <span>&nbsp;&nbsp;${tweet.likes === undefined ? 0 : tweet.likes}</span>
+                            ${tweet.likes === undefined ?
+                              `<i class="fas fa-heart tweet-action-like"></i>
+                                <span>&nbsp;&nbsp;0</span>` :
+                              `<i class="fas fa-retweet tweet-action-like ${tweet.hasLiked ? 'tweet-action-liked':''}"></i>
+                                <span ${tweet.hasLiked ? 'style="color:#1da1f2"' : ''}>&nbsp;&nbsp;${tweet.likes}</span>`}
                           </span>
                         </div>
                         <div class="col-md-2">
                           <span>
-                            <i class="fas fa-retweet tweet-action-retweet" style="cursor:pointer"></i>
-                            <span>&nbsp;&nbsp;${tweet.retweets === undefined ? 0 : tweet.retweets}</span>
+                            ${tweet.retweets === undefined ?
+                              `<i class="fas fa-retweet tweet-action-retweet"></i>
+                                <span>&nbsp;&nbsp;0</span>` :
+                              `<i class="fas fa-retweet tweet-action-retweet ${tweet.hasRetweeted ? 'tweet-action-retweeted':''}"></i>
+                                <span ${tweet.hasRetweeted ? 'style="color:#1da1f2"' : ''}>&nbsp;&nbsp;${tweet.retweets}</span>`}
                           </span>
                         </div>
                       </div>

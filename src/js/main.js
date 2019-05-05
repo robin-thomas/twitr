@@ -142,7 +142,13 @@ $(document).ready(() => {
         const tweetLike = await TWEET.toggleLike(tweet.id);
 
         // Update the "like" UI.
-        $(e.currentTarget).next().html(`&nbsp;&nbsp;${tweetLike.likes}`);
+        if (tweetLike.hasLiked) {
+          $(e.currentTarget).addClass('tweet-action-liked');
+          $(e.currentTarget).next().addClass('tweet-action-liked').html(`&nbsp;&nbsp;${tweetLike.likes}`);
+        } else {
+          $(e.currentTarget).removeClass('tweet-action-liked');
+          $(e.currentTarget).next().removeClass('tweet-action-liked').html(`&nbsp;&nbsp;${tweetLike.likes}`);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -169,7 +175,8 @@ $(document).ready(() => {
         const tweetRetweet = await TWEET.retweet(tweet.id);
 
         // Update the "like" UI.
-        $(e.currentTarget).next().html(`&nbsp;&nbsp;${tweetRetweet.retweets}`);
+        $(e.currentTarget).addClass('tweet-action-retweeted');
+        $(e.currentTarget).next().addClass('tweet-action-retweeted').html(`&nbsp;&nbsp;${tweetRetweet.retweets}`);
       } catch (err) {
         console.log(err);
       }

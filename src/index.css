@@ -50,6 +50,14 @@ body {
   padding-top: 5px;
 }
 
+.tweet-action-retweet, .tweet-action-like {
+  cursor:pointer;
+}
+
+.tweet-action-retweeted, .tweet-action-liked {
+  color:#1da1f2;
+}
+
 .header-icon {
   padding-bottom: 5px;
   text-align: center;
