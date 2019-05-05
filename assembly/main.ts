@@ -27,6 +27,9 @@ export function addTweet(tweet: Tweet): Tweet {
   let likesMap = collections.map<string, string>('likes:' + tweet.id.toString());
   likesMap.set('.count', 'likeCount_' + tweet.id.toString());
 
+  let retweetsMap = collections.map<string, string>('retweets:' + tweet.id.toString());
+  retweetsMap.set('.count', 'retweetCount_' + tweet.id.toString());
+
   return tweet;
 }
 
