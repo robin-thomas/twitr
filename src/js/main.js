@@ -96,6 +96,8 @@ $(document).ready(() => {
 
     try {
       await TWEET.createTweet(text, dataURI);
+
+      tweetInputDialog.modal('show');
     } catch (err) {
       console.log(err);
       alert(err.message);
