@@ -64,3 +64,25 @@ export function toggleLike(id: i32): i32 {
 
   return likesMap.count();
 }
+
+// Returns an array of all tweets of an account.
+// NOTE: This is a view method. Which means it should NOT modify the state.
+export function getTweetsOfAccount(accountId: string): Array<Tweet> {
+  let numTweets = 0;
+  for (let i = 0; i < tweets.length; i++) {
+    if (tweets[i].sender === context.sender) {
+      numTweets++;
+    }
+  }
+
+  let result = new Array<Tweet>(numTweets);
+  for (let i = 0, j = -1; i < tweets.length; i++) {
+    if (tweets[i].sender === context.sender) {
+      result[++j] = tweets[i];
+
+      let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
+      result[j].likes = likesMap.count();
+    }
+  }
+  return result;
+}
