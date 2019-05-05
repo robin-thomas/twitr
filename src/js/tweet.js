@@ -5,7 +5,7 @@ const IPFS = require('./ipfs.js');
 const NEAR = require('./near.js');
 
 const TWEET = {
-  createTweet: async (text, dataURI) => {
+  createTweet: async (text, dataURI = null) => {
     try {
       // Validate.
       TWEET.validateTweet(text);
@@ -13,8 +13,8 @@ const TWEET = {
       const accountId = NEAR.getAccount();
 
       // Upload the image to IPFS.
-      const imgBlob = dataURI !== undefined ? IMG.dataURIToBlob(dataURI) : null;
-      const imgUrl = await IPFS.uploadImage(imgBlob);
+      const imgUrl = dataURI !== null && dataURI !== '#' ?
+        await IPFS.uploadImage(IMG.dataURIToBlob(dataURI)) : '';
 
       const tweet = {
         id: -1, /* set in contract */

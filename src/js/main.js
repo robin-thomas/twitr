@@ -179,6 +179,8 @@ $(document).ready(() => {
         const json = decodeURIComponent(parent.find('.tweet-encoded').val());
         let tweet = JSON.parse(json);
 
+        console.log(tweet);
+
         if (tweet.hasRetweeted) {
           alert('You have already retweeted this tweet!');
           return;
