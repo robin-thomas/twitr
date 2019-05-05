@@ -124,7 +124,7 @@ const TWEET = {
                             ${tweet.likes === undefined ?
                               `<i class="fas fa-heart tweet-action-like"></i>
                                 <span>&nbsp;&nbsp;0</span>` :
-                              `<i class="fas fa-retweet tweet-action-like ${tweet.hasLiked ? 'tweet-action-liked':''}"></i>
+                              `<i class="fas fa-heart tweet-action-like ${tweet.hasLiked ? 'tweet-action-liked':''}"></i>
                                 <span ${tweet.hasLiked ? 'style="color:#1da1f2"' : ''}>&nbsp;&nbsp;${tweet.likes}</span>`}
                           </span>
                         </div>
