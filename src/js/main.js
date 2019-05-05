@@ -4,6 +4,7 @@ const NEAR = require('./near.js');
 $(document).ready(() => {
 
   const tweetInputDialog = $('#tweet-input-dialog');
+  const tweetDiv = $('.twitr-feed-tweet');
   const tweetBtn = $('.twitr-feed-tweet-text');
   const tweetArea = $('#tweet-dialog-textarea');
   const tweetSubmit = $('#confirm-tweet');
@@ -108,7 +109,9 @@ $(document).ready(() => {
   twitrLogin.on('click', () => {
     if (twitrLogin.hasClass('twitr-login')) {
       NEAR.login();
+      tweetDiv.show();
     } else {
+      tweetDiv.hide();
       NEAR.logout();
     }
   });
