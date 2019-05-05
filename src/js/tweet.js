@@ -119,11 +119,19 @@ const TWEET = {
                                                    src="${img}" />
                                              </div></div>` : ''}
                       <div class="row" style="margin-top:10px;color:#8899a6;font-size:15px">
-                        <div class="col">
+                        <div class="col-md-2">
                           <span>
                             <i class="far fa-heart tweet-action-like" style="cursor:pointer"></i>
                             <span>&nbsp;&nbsp;${tweet.likes === undefined ? 0 : tweet.likes}</span>
                           </span>
+                        </div>
+                        <div class="col-md-2">
+                          <span>
+                            <i class="fas fa-retweet tweet-action-retweet" style="cursor:pointer"></i>
+                            <span>&nbsp;&nbsp;${tweet.retweets === undefined ? 0 : tweet.retweets}</span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>`;
 
@@ -138,6 +146,18 @@ const TWEET = {
       });
 
       console.log(result);
+
+      return result.lastResult;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  retweet: async (tweetId) => {
+    try {
+      const result = await NEAR.contract.retweet({
+        id: tweetId,
+      });
 
       return result.lastResult;
     } catch (err) {

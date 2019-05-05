@@ -8,4 +8,5 @@ export class Tweet {
   avatar: string;
   img: string;
   likes: i32;
+  retweets: i32;
 }

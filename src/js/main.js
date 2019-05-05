@@ -138,12 +138,33 @@ $(document).ready(() => {
         const json = decodeURIComponent(parent.find('.tweet-encoded').val());
         const tweet = JSON.parse(json);
 
-
         $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
         const likes = await TWEET.toggleLike(tweet.id);
 
         // Update the "like" UI.
         $(e.currentTarget).next().html(`&nbsp;&nbsp;${likes}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  });
+
+  $('#twitr-feed-timeline').on('click', '.tweet-action-retweet', async (e) => {
+    const account = NEAR.getAccount();
+    if (account.trim().length === 0) {
+      NEAR.login();
+    } else {
+      // update tweet.
+      try {
+        const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
+        const json = decodeURIComponent(parent.find('.tweet-encoded').val());
+        const tweet = JSON.parse(json);
+
+        $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
+        const retweets = await TWEET.retweet(tweet.id);
+
+        // Update the "like" UI.
+        $(e.currentTarget).next().html(`&nbsp;&nbsp;${retweets}`);
       } catch (err) {
         console.log(err);
       }

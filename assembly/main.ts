@@ -42,9 +42,15 @@ export function getTweets(end: i32): Array<Tweet> {
   for (let i = 0; i < numTweets; i++) {
     result[i] = tweets[i + startIndex];
 
+    // Get the "likes" count.
     let likesMap = collections.map<string, string>('likes:' + result[i].id.toString());
     result[i].likes = likesMap.count();
+
+    // Get the "retweets" count.
+    let retweetsMap = collections.map<string, string>('retweets:' + result[i].id.toString());
+    result[i].retweets = retweetsMap.count();
   }
+
   return result;
 }
 
@@ -65,6 +71,23 @@ export function toggleLike(id: i32): i32 {
   return likesMap.count();
 }
 
+// Update the "retweet" count of a tweet.
+// NOTE: This is a change method. Which means it will modify the state.
+// But right now we don't distinguish them with annotations yet.
+export function retweet(id: i32): i32 {
+  let retweetsMap = collections.map<string, string>('retweets:' + id.toString());
+
+  if (!retweetsMap.contains(context.sender)) {
+    // Increase the retweet count.
+    retweetsMap.set(context.sender, "");
+
+    // Add the retweet.
+    addTweet(tweets[id]);
+  }
+
+  return retweetsMap.count();
+}
+
 // Returns an array of all tweets of an account.
 // NOTE: This is a view method. Which means it should NOT modify the state.
 export function getTweetsOfAccount(accountId: string): Array<Tweet> {
@@ -80,8 +103,13 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
     if (tweets[i].sender === context.sender) {
       result[++j] = tweets[i];
 
+      // Get the "likes" count.
       let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
       result[j].likes = likesMap.count();
+
+      // Get the "retweets" count.
+      let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
+      result[j].retweets = retweetsMap.count();
     }
   }
   return result;
