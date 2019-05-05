@@ -138,10 +138,21 @@ $(document).ready(() => {
       try {
         const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
         const json = decodeURIComponent(parent.find('.tweet-encoded').val());
-        const tweet = JSON.parse(json);
+        let tweet = JSON.parse(json);
+
+        const hasLiked = tweet.hasLiked;
 
         $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
         const tweetLike = await TWEET.toggleLike(tweet.id);
+
+        // Check if state has changed.
+        if (tweetLike.hasLiked !== hasLiked) {
+          tweet.hasLiked = tweetLike.hasLiked;
+          tweet.likes = tweetLike.likes;
+
+          const encodedTweet = encodeURIComponent(JSON.stringify(tweet));
+          parent.find('.tweet-encoded').val(encodedTweet);
+        }
 
         // Update the "like" UI.
         if (tweetLike.hasLiked) {
@@ -166,7 +177,7 @@ $(document).ready(() => {
       try {
         const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
         const json = decodeURIComponent(parent.find('.tweet-encoded').val());
-        const tweet = JSON.parse(json);
+        let tweet = JSON.parse(json);
 
         if (tweet.hasRetweeted) {
           alert('You have already retweeted this tweet!');
@@ -175,6 +186,15 @@ $(document).ready(() => {
 
         $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
         const retweet = await TWEET.retweet(tweet.id);
+
+        // Update the JSON if retweeted.
+        if (retweet.hasRetweeted) {
+          tweet.hasRetweeted = retweet.hasRetweeted;
+          tweet.retweets = retweet.retweets;
+
+          const encodedTweet = encodeURIComponent(JSON.stringify(tweet));
+          parent.find('.tweet-encoded').val(encodedTweet);
+        }
 
         // Update the "retweet" UI.
         $(e.currentTarget).addClass('tweet-action-retweeted');
