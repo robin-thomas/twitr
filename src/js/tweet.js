@@ -68,6 +68,18 @@ const TWEET = {
     }
   },
 
+  getTweetsOfAccount: async () => {
+    try {
+      const tweets = await NEAR.contract.getTweetsOfAccount({
+        accountId: NEAR.getAccount(),
+      });
+      console.log(tweets);
+      return tweets;
+    } catch (err) {
+      throw err;
+    }
+  },
+
   displayTweets: (tweets) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
 

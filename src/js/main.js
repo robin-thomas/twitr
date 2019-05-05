@@ -215,6 +215,22 @@ $(document).ready(() => {
         console.log(err);
       }
     }
-  })
+  });
+
+  $('#header-navbar .header-icon').on('click', function() => {
+    const id = $(this).attr('id');
+
+    switch (id.toUpperCase()) {
+      case 'HOME-TWEETS':
+        $('#twitr-feed-timeline').html('');
+        TWEET.downloadTweets().then(TWEET.displayTweets);
+        break;
+
+      case 'OWN-TWEETS':
+        $('#twitr-feed-timeline').html('');
+        TWEET.getTweetsOfAccount().then(TWEET.displayTweets);
+        break;
+    }
+  });
 
 });

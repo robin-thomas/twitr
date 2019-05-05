@@ -129,12 +129,12 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
 
       // Get the "likes" count.
       let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
-      result[j].hasLiked = likesMap.contains(context.sender);
+      result[j].hasLiked = likesMap.contains(accountId);
       result[j].likes = likesMap.count();
 
       // Get the "retweets" count.
       let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
-      result[j].hasRetweeted = retweetsMap.contains(context.sender);
+      result[j].hasRetweeted = retweetsMap.contains(accountId);
       result[j].retweets = retweetsMap.count();
     }
   }
