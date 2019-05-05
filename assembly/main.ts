@@ -37,6 +37,7 @@ export function addTweet(tweet: Tweet): Tweet {
 // NOTE: This is a view method. Which means it should NOT modify the state.
 export function getTweets(sender: string, end: i32): Array<Tweet> {
   end = end || tweets.length;
+  sender = sender || ""
 
   let numTweets = min(TWEET_LIMIT, tweets.length);
   let startIndex = end - numTweets;
