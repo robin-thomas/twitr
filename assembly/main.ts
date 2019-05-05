@@ -89,7 +89,9 @@ export function retweet(id: i32, created: string, author: string, avatar: string
     // Increase the retweet count.
     retweetsMap.set(context.sender, "");
 
-    let tweet = tweets[id];
+    let tweet = new Tweet();
+    tweet.text = tweets[id].text;
+    tweet.img = tweets[id].img;
     tweet.created = created;
     tweet.author = author;
     tweet.avatar = avatar;
