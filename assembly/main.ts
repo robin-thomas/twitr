@@ -77,7 +77,8 @@ export function toggleLike(id: i32): i32 {
 export function retweet(id: i32): i32 {
   let retweetsMap = collections.map<string, string>('retweets:' + id.toString());
 
-  if (!retweetsMap.contains(context.sender)) {
+  if (tweets[id].sender !== context.sender &&
+      !retweetsMap.contains(context.sender)) {
     // Increase the retweet count.
     retweetsMap.set(context.sender, "");
 
