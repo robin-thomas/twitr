@@ -80,7 +80,7 @@ export function toggleLike(id: i32): TweetLike {
 // Update the "retweet" count of a tweet.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function retweet(id: i32): TweetRetweet {
+export function retweet(id: i32, created: string, author: string, avatar: string): TweetRetweet {
   let retweetsMap = collections.map<string, string>('retweets:' + id.toString());
 
   let newTweet:Tweet = null;
@@ -89,8 +89,13 @@ export function retweet(id: i32): TweetRetweet {
     // Increase the retweet count.
     retweetsMap.set(context.sender, "");
 
+    let tweet = tweets[id];
+    tweet.created = created;
+    tweet.author = author;
+    tweet.avatar = avatar;
+
     // Add the retweet.
-    newTweet = addTweet(tweets[id]);
+    newTweet = addTweet(tweet);
   }
 
   let tweetRetweet = new TweetRetweet();

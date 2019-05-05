@@ -1,18 +1,16 @@
 const moment = require('moment');
-const faker = require('faker');
 
 const IMG = require('./img.js');
 const IPFS = require('./ipfs.js');
 const NEAR = require('./near.js');
 
 const TWEET = {
-  createTweet: async (text, dataURI, accountId = 12345) => {
+  createTweet: async (text, dataURI) => {
     try {
       // Validate.
       TWEET.validateTweet(text);
 
-      faker.seed(accountId);
-      const author = faker.random.words();
+      const accountId = NEAR.getAccount();
 
       // Upload the image to IPFS.
       const imgBlob = dataURI !== undefined ? IMG.dataURIToBlob(dataURI) : null;
@@ -22,7 +20,7 @@ const TWEET = {
         id: -1, /* set in contract */
         sender: '',  /* set in contract */
         text: text,
-        author: author,
+        author: accountId,
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
         avatar: `https://avatars.dicebear.com/v2/gridy/${accountId}.svg`,
         img: imgUrl,
@@ -159,8 +157,13 @@ const TWEET = {
 
   retweet: async (tweetId) => {
     try {
+      const accountId = NEAR.getAccount();
+
       const result = await NEAR.contract.retweet({
         id: tweetId,
+        created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+        author: accountId,
+        avatar: `https://avatars.dicebear.com/v2/gridy/${accountId}.svg`,
       });
 
       return result.lastResult;
