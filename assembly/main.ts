@@ -35,7 +35,7 @@ export function addTweet(tweet: Tweet): Tweet {
 
 // Returns an array of N messages from a given position (defaults to end).
 // NOTE: This is a view method. Which means it should NOT modify the state.
-export function getTweets(end: i32): Array<Tweet> {
+export function getTweets(sender: string, end: i32): Array<Tweet> {
   end = end || tweets.length;
 
   let numTweets = min(TWEET_LIMIT, tweets.length);
@@ -47,12 +47,12 @@ export function getTweets(end: i32): Array<Tweet> {
 
     // Get the "likes" count.
     let likesMap = collections.map<string, string>('likes:' + result[i].id.toString());
-    result[i].hasLiked = likesMap.contains(context.sender);
+    result[i].hasLiked = likesMap.contains(sender);
     result[i].likes = likesMap.count();
 
     // Get the "retweets" count.
     let retweetsMap = collections.map<string, string>('retweets:' + result[i].id.toString());
-    result[i].hasRetweeted = retweetsMap.contains(context.sender);
+    result[i].hasRetweeted = retweetsMap.contains(sender);
     result[i].retweets = retweetsMap.count();
   }
 
