@@ -15,6 +15,8 @@ $(document).ready(() => {
   const confirmTweet = $('#confirm-tweet');
   const tweetTextareaDisable = $('#tweet-textarea-disable');
 
+  const userIcons = $('#header-navbar .user-icon');
+
   const twitrLogin = $('#twitr-login');
 
   // Show the tweet input window.
@@ -103,15 +105,24 @@ $(document).ready(() => {
     btn.html(btn.data('original-text'));
   });
 
-  NEAR.init().then(() => TWEET.downloadTweets()).then(TWEET.displayTweets);
+  NEAR.init().then((loggedIn) => {
+    // if logged in.
+    if (loggedIn === true) {
+      tweetDiv.show();
+      userIcons.show();
+    } else {
+      tweetDiv.hide();
+      userIcons.hide();
+    }
+  })
+  .then(TWEET.downloadTweets)
+  .then(TWEET.displayTweets);
 
   // Login/logout.
   twitrLogin.on('click', () => {
     if (twitrLogin.hasClass('twitr-login')) {
       NEAR.login();
-      tweetDiv.show();
     } else {
-      tweetDiv.hide();
       NEAR.logout();
     }
   });

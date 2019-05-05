@@ -47,6 +47,9 @@ const NEAR = {
         twitrLogin.removeClass('twitr-logout').addClass('twitr-login');
         twitrLogin.html('Login');
       }
+
+      return NEAR.walletAccount.isSignedIn();
+
     } catch (err) {
       throw err;
     }
