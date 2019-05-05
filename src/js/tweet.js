@@ -59,9 +59,9 @@ const TWEET = {
   downloadTweets: async () => {
     try {
       const accountId = NEAR.getAccount();
+      console.log(accountId);
       const tweets = await NEAR.contract.getTweets(accountId);
       console.log(tweets);
-      console.log(accountId);
       return tweets;
     } catch (err) {
       throw err;
