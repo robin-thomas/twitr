@@ -50,6 +50,23 @@ body {
   padding-top: 5px;
 }
 
+.header-icon {
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.header-icon-active {
+  border-bottom: 3px solid #1da1f2;
+}
+
+.header-icon > i {
+  margin: 0 auto;
+  color:#1da1f2;
+  font-size:30px;
+  line-height:40px;
+  cursor: pointer;
+}
+
 #content .twitr-container {
   padding: 25px 15px;
 }
