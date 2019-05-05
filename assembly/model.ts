@@ -21,4 +21,5 @@ export class TweetLike {
 export class TweetRetweet {
   retweets: i32;
   hasRetweeted: bool;
+  retweet: Tweet;
 }

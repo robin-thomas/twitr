@@ -172,11 +172,16 @@ $(document).ready(() => {
         }
 
         $(e.currentTarget).next().html('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>');
-        const tweetRetweet = await TWEET.retweet(tweet.id);
+        const retweet = await TWEET.retweet(tweet.id);
 
-        // Update the "like" UI.
+        // Update the "retweet" UI.
         $(e.currentTarget).addClass('tweet-action-retweeted');
-        $(e.currentTarget).next().addClass('tweet-action-retweeted').html(`&nbsp;&nbsp;${tweetRetweet.retweets}`);
+        $(e.currentTarget).next().addClass('tweet-action-retweeted').html(`&nbsp;&nbsp;${retweet.retweets}`);
+
+        // Display the retweet.
+        if (retweet.retweet !== null) {
+          TWEET.displayTweets([retweet.retweet]);
+        }
       } catch (err) {
         console.log(err);
       }

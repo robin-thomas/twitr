@@ -83,18 +83,20 @@ export function toggleLike(id: i32): TweetLike {
 export function retweet(id: i32): TweetRetweet {
   let retweetsMap = collections.map<string, string>('retweets:' + id.toString());
 
+  let newTweet:Tweet = null;
   if (tweets[id].sender !== context.sender &&
       !retweetsMap.contains(context.sender)) {
     // Increase the retweet count.
     retweetsMap.set(context.sender, "");
 
     // Add the retweet.
-    addTweet(tweets[id]);
+    newTweet = addTweet(tweets[id]);
   }
 
   let tweetRetweet = new TweetRetweet();
   tweetRetweet.retweets = retweetsMap.count();
   tweetRetweet.hasRetweeted = retweetsMap.contains(context.sender);
+  tweetRetweet.retweet = newTweet;
 
   return tweetRetweet;
 }
