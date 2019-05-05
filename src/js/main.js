@@ -217,7 +217,7 @@ $(document).ready(() => {
     }
   });
 
-  $('#header-navbar .header-icon').on('click', function() => {
+  $('#header-navbar .header-icon').on('click', function() {
     const id = $(this).attr('id');
 
     switch (id.toUpperCase()) {
