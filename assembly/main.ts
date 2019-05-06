@@ -114,7 +114,7 @@ export function retweet(id: i32, created: string, author: string, avatar: string
 
 // Returns an array of all tweets of an account.
 // NOTE: This is a view method. Which means it should NOT modify the state.
-export function getTweetsOfAccount(accountId: string): Array<Tweet> {
+export function getTweetsOfAccount(accountId: string): i32 {
   let numTweets = 0;
   for (let i = 0; i < tweets.length; i++) {
     if (tweets[i].sender === accountId) {
@@ -122,21 +122,23 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
     }
   }
 
-  let result = new Array<Tweet>(numTweets);
-  for (let i = 0, j = -1; i < tweets.length; i++) {
-    if (tweets[i].sender === accountId) {
-      result[++j] = tweets[i];
+  return numTweets;
 
-      // Get the "likes" count.
-      let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
-      result[j].hasLiked = likesMap.contains(accountId);
-      result[j].likes = likesMap.count();
-
-      // Get the "retweets" count.
-      let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
-      result[j].hasRetweeted = retweetsMap.contains(accountId);
-      result[j].retweets = retweetsMap.count();
-    }
-  }
-  return result;
+  // let result = new Array<Tweet>(numTweets);
+  // for (let i = 0, j = -1; i < tweets.length; i++) {
+  //   if (tweets[i].sender === accountId) {
+  //     result[++j] = tweets[i];
+  //
+  //     // Get the "likes" count.
+  //     let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
+  //     result[j].hasLiked = likesMap.contains(accountId);
+  //     result[j].likes = likesMap.count();
+  //
+  //     // Get the "retweets" count.
+  //     let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
+  //     result[j].hasRetweeted = retweetsMap.contains(accountId);
+  //     result[j].retweets = retweetsMap.count();
+  //   }
+  // }
+  // return result;
 }

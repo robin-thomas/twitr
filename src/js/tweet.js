@@ -51,17 +51,11 @@ const TWEET = {
     }
   },
 
-
-  // hashes = [
-  //   'QmYYaEWAdjkn2VdtAuBj6akHjkMeBjrCstyCn9LXfhgYTd',
-  //   'Qma5nPiSyBRGwEj6VRPPV3MZCeog13LMDG9KCDgwFVegia'
-  // ]
   downloadTweets: async () => {
     try {
       const tweets = await NEAR.contract.getTweets({
         sender: NEAR.getAccount(),
       });
-      console.log(tweets);
       return tweets;
     } catch (err) {
       throw err;
@@ -74,7 +68,7 @@ const TWEET = {
         accountId: NEAR.getAccount(),
       });
       console.log(tweets);
-      return tweets;
+      return [];
     } catch (err) {
       throw err;
     }
