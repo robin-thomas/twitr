@@ -230,6 +230,9 @@ $(document).ready(() => {
       <i class="fas fa-circle-notch fa-spin" style="color:white;font-size:28px;color:#1da1f2"></i>
     </div>`);
 
+    // TODO: Show the home header.
+    // Show the tweet create option => if logged in.
+
     switch (id.toUpperCase()) {
       case 'HOME-TWEETS':
         TWEET.downloadTweets().then((tweets) => {
@@ -251,7 +254,17 @@ $(document).ready(() => {
     e.preventDefault();
 
     const author = $(this).html();
-    console.log(author);
+
+    // UI update.
+    tweetDiv.hide();
+    $('#twitr-feed-timeline').html(`<div style="text-align:center;padding:15px 0">
+      <i class="fas fa-circle-notch fa-spin" style="color:white;font-size:28px;color:#1da1f2"></i>
+    </div>`);
+
+    TWEET.getTweetsOfAccount(author).then((tweets) => {
+      $('#twitr-feed-timeline').html('');
+      TWEET.displayTweets(tweets);
+    });
   });
 
 });

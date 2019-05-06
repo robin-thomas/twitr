@@ -62,12 +62,11 @@ const TWEET = {
     }
   },
 
-  getTweetsOfAccount: async () => {
+  getTweetsOfAccount: async (accountId = null) => {
     try {
       const tweets = await NEAR.contract.getTweetsOfAccount({
-        accountId: NEAR.getAccount(),
+        accountId: accountId || NEAR.getAccount(),
       });
-      console.log(tweets);
       return tweets;
     } catch (err) {
       throw err;
