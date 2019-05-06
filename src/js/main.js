@@ -5,7 +5,6 @@ $(document).ready(() => {
 
   const tweetInputDialog = $('#tweet-input-dialog');
   const tweetDiv = $('.twitr-feed-tweet');
-  const tweetBtn = $('.twitr-feed-tweet-text');
   const tweetArea = $('#tweet-dialog-textarea');
   const tweetSubmit = $('#confirm-tweet');
   const tweetAddPic = $('#tweet-img-fake');
@@ -20,7 +19,7 @@ $(document).ready(() => {
   const twitrLogin = $('#twitr-login');
 
   // Show the tweet input window.
-  tweetBtn.on('click', () => {
+  tweetDiv.on('click', () => {
     tweetInputDialog.modal('show');
   });
 
