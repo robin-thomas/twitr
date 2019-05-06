@@ -272,7 +272,7 @@ $(document).ready(() => {
       <div style="color:#fff;font-size:28px">${accountId}</div>
     `);
 
-    TWEET.getTweetsOfAccount(author).then((tweets) => {
+    TWEET.getTweetsOfAccount(accountId).then((tweets) => {
       $('#twitr-feed-timeline').html('');
       TWEET.displayTweets(tweets);
     });
