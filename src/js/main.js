@@ -223,14 +223,16 @@ $(document).ready(() => {
     $('#header-navbar .header-icon').removeClass('header-icon-active');
     $(this).addClass('header-icon-active');
 
+    $('#twitr-feed-timeline').html(`<div style="text-align:center;padding:15px 0">
+      <i class="fas fa-circle-notch fa-spin" style="color:white;font-size:28px;color:#1da1f2"></i>
+    </div>`);
+
     switch (id.toUpperCase()) {
       case 'HOME-TWEETS':
-        $('#twitr-feed-timeline').html('');
         TWEET.downloadTweets().then(TWEET.displayTweets);
         break;
 
       case 'OWN-TWEETS':
-        $('#twitr-feed-timeline').html('');
         TWEET.getTweetsOfAccount().then(TWEET.displayTweets);
         break;
     }
