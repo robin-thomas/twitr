@@ -68,7 +68,7 @@ const TWEET = {
         accountId: NEAR.getAccount(),
       });
       console.log(tweets);
-      return [];
+      return tweets;
     } catch (err) {
       throw err;
     }
