@@ -148,7 +148,7 @@ const TWEET = {
 
       let ele = $('#twitr-feed-timeline').find('.simplebar-content');
       if (ele.length === 0) {
-        ele = $('#twitr-feed-timeline')
+        ele = $('#twitr-feed-timeline');
       }
       ele.prepend(row);
     }

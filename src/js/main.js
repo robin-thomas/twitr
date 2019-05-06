@@ -15,6 +15,7 @@ $(document).ready(() => {
   const tweetTextareaDisable = $('#tweet-textarea-disable');
 
   const userIcons = $('#header-navbar .user-icon');
+  const tweetLoading = $('#twitter-feed-loader');
 
   const twitrLogin = $('#twitr-login');
 
@@ -230,9 +231,7 @@ $(document).ready(() => {
     $('#header-navbar .header-icon').removeClass('header-icon-active');
     $(this).addClass('header-icon-active');
 
-    $('#twitr-feed-timeline').html(`<div style="text-align:center;padding:15px 0">
-      <i class="fas fa-circle-notch fa-spin" style="color:white;font-size:28px;color:#1da1f2"></i>
-    </div>`);
+    tweetLoading.show();
 
     // Show the home header and tweet create option (if logged in).
     $('.twitr-feed-home').html('<span style="margin-left:10px;line-height:50px">Home</span>');
@@ -240,12 +239,11 @@ $(document).ready(() => {
       tweetDiv.show();
     }
 
-    $('#twitr-feed-timeline').removeAttr('data-simplebar');
-
     switch (id.toUpperCase()) {
       case 'HOME-TWEETS':
         TWEET.downloadTweets().then((tweets) => {
-          $('#twitr-feed-timeline').html('');
+          $('#twitr-feed-timeline').find('.simplebar-content').html('');
+          tweetLoading.hide();
           TWEET.displayTweets(tweets);
           new SimpleBar($('#twitr-feed-timeline')[0]);
         });
@@ -253,7 +251,8 @@ $(document).ready(() => {
 
       case 'OWN-TWEETS':
         TWEET.getTweetsOfAccount().then((tweets) => {
-          $('#twitr-feed-timeline').html('');
+          $('#twitr-feed-timeline').find('.simplebar-content').html('');
+          tweetLoading.hide();
           TWEET.displayTweets(tweets);
           new SimpleBar($('#twitr-feed-timeline')[0]);
         });
@@ -268,9 +267,7 @@ $(document).ready(() => {
 
     // UI update.
     tweetDiv.hide();
-    $('#twitr-feed-timeline').html(`<div style="text-align:center;padding:15px 0">
-      <i class="fas fa-circle-notch fa-spin" style="color:white;font-size:28px;color:#1da1f2"></i>
-    </div>`);
+    tweetLoading.show();
     $('#header-navbar .header-icon').removeClass('header-icon-active');
 
     // Construct the cover pic.
@@ -284,8 +281,10 @@ $(document).ready(() => {
     `);
 
     TWEET.getTweetsOfAccount(accountId).then((tweets) => {
-      $('#twitr-feed-timeline').html('');
+      $('#twitr-feed-timeline').find('.simplebar-content').html('');
+      tweetLoading.hide();
       TWEET.displayTweets(tweets);
+      new SimpleBar($('#twitr-feed-timeline')[0]);
     });
   });
 
