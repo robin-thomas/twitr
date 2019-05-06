@@ -119,6 +119,8 @@ $(document).ready(() => {
       userIcons.hide();
       $('.user-feed-icon').html('');
     }
+
+    new SimpleBar($('#twitr-feed-timeline')[0]);
   })
   .then(TWEET.downloadTweets)
   .then(TWEET.displayTweets);
