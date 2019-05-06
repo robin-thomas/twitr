@@ -112,9 +112,13 @@ $(document).ready(() => {
     if (loggedIn === true) {
       tweetDiv.show();
       userIcons.show();
+
+      const avatar = `https://avatars.dicebear.com/v2/gridy/${NEAR.getAccount()}.svg`;
+      $('.user-feed-icon').html(`<img src="${avatar}" style="width:30px;height:30px" />`);
     } else {
       tweetDiv.hide();
       userIcons.hide();
+      $('.user-feed-icon').html('');
     }
   })
   .then(TWEET.downloadTweets)
