@@ -146,7 +146,7 @@ const TWEET = {
                     </div>
                   </div>`;
 
-      $('#twitr-feed-timeline').prepend(row);
+      $('#twitr-feed-timeline').find('.simplebar-content').prepend(row);
     }
   },
 
