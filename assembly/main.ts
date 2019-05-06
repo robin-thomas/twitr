@@ -117,14 +117,14 @@ export function retweet(id: i32, created: string, author: string, avatar: string
 export function getTweetsOfAccount(accountId: string): Array<Tweet> {
   let numTweets = 0;
   for (let i = 0; i < tweets.length; i++) {
-    if (tweets[i].sender === context.sender) {
+    if (tweets[i].sender === accountId) {
       numTweets++;
     }
   }
 
   let result = new Array<Tweet>(numTweets);
   for (let i = 0, j = -1; i < tweets.length; i++) {
-    if (tweets[i].sender === context.sender) {
+    if (tweets[i].sender === accountId) {
       result[++j] = tweets[i];
 
       // Get the "likes" count.
