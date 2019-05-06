@@ -241,4 +241,11 @@ $(document).ready(() => {
     }
   });
 
+  $('#twitr-feed-timeline').on('click', '.profile-link', function(e) {
+    e.preventDefault();
+
+    const author = $(this).html();
+    console.log(author);
+  });
+
 });

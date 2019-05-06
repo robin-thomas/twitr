@@ -113,7 +113,7 @@ const TWEET = {
                     <div class="col-md-11">
                       <div class="row">
                         <div class="col">
-                          <span style="color:white;font-weight:bold">${author}</span>
+                          <a href="#" class="profile-link" style="color:white;font-weight:bold">${author}</a>
                           <span style="color:#8899a6;font-size:13px">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;${created}</span>
                         </div>
                       </div>
