@@ -240,13 +240,14 @@ $(document).ready(() => {
       tweetDiv.show();
     }
 
+    $('#twitr-feed-timeline').removeAttr('data-simplebar');
+
     switch (id.toUpperCase()) {
       case 'HOME-TWEETS':
         TWEET.downloadTweets().then((tweets) => {
           $('#twitr-feed-timeline').html('');
           TWEET.displayTweets(tweets);
-          const el = new SimpleBar($('#twitr-feed-timeline')[0]);
-          el.recalculate();
+          new SimpleBar($('#twitr-feed-timeline')[0]);
         });
         break;
 
@@ -254,8 +255,7 @@ $(document).ready(() => {
         TWEET.getTweetsOfAccount().then((tweets) => {
           $('#twitr-feed-timeline').html('');
           TWEET.displayTweets(tweets);
-          const el = new SimpleBar($('#twitr-feed-timeline')[0]);
-          el.recalculate();
+          new SimpleBar($('#twitr-feed-timeline')[0]);
         });
         break;
     }
