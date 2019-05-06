@@ -230,8 +230,11 @@ $(document).ready(() => {
       <i class="fas fa-circle-notch fa-spin" style="color:white;font-size:28px;color:#1da1f2"></i>
     </div>`);
 
-    // TODO: Show the home header.
-    // Show the tweet create option => if logged in.
+    // Show the home header and tweet create option (if logged in).
+    $('.twitr-feed-home').html('<span>Home</span>');
+    if (NEAR.getAccount().trim().length !== 0) {
+      tweetDiv.show();
+    }
 
     switch (id.toUpperCase()) {
       case 'HOME-TWEETS':
@@ -253,13 +256,21 @@ $(document).ready(() => {
   $('#twitr-feed-timeline').on('click', '.profile-link', function(e) {
     e.preventDefault();
 
-    const author = $(this).html();
+    const accountId = $(this).html();
 
     // UI update.
     tweetDiv.hide();
     $('#twitr-feed-timeline').html(`<div style="text-align:center;padding:15px 0">
       <i class="fas fa-circle-notch fa-spin" style="color:white;font-size:28px;color:#1da1f2"></i>
     </div>`);
+    $('#header-navbar .header-icon').removeClass('header-icon-active');
+
+    // Construct the cover pic.
+    $('.twitr-feed-home').html(`
+      <div style="width:100%;height:100px;"></div>
+      <img src="https://avatars.dicebear.com/v2/gridy/${accountId}.svg" style="width:60px;height:60px" />
+      <div style="color:#fff;font-size:28px">${accountId}</div>
+    `);
 
     TWEET.getTweetsOfAccount(author).then((tweets) => {
       $('#twitr-feed-timeline').html('');
