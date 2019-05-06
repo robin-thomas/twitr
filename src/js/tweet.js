@@ -120,7 +120,7 @@ const TWEET = {
                       <div class="row">
                         <div class="col" style="color:white;font-size:15px">${text}</div>
                       </div>
-                      ${img !== undefined ? `<div class="row"><div class="col">
+                      ${img !== '' ? `<div class="row"><div class="col">
                                               <img style="margin-top:10px;width:100%;border-radius:10px;border:1px solid #38444d"
                                                    src="${img}" />
                                              </div></div>` : ''}
