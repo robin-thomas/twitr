@@ -232,11 +232,17 @@ $(document).ready(() => {
 
     switch (id.toUpperCase()) {
       case 'HOME-TWEETS':
-        TWEET.downloadTweets().then(TWEET.displayTweets);
+        TWEET.downloadTweets().then((tweets) => {
+          $('#twitr-feed-timeline').html('');
+          TWEET.displayTweets(tweets);
+        });
         break;
 
       case 'OWN-TWEETS':
-        TWEET.getTweetsOfAccount().then(TWEET.displayTweets);
+        TWEET.getTweetsOfAccount().then((tweets) => {
+          $('#twitr-feed-timeline').html('');
+          TWEET.displayTweets(tweets);
+        });
         break;
     }
   });
