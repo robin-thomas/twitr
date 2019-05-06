@@ -123,7 +123,12 @@ $(document).ready(() => {
     new SimpleBar($('#twitr-feed-timeline')[0]);
   })
   .then(TWEET.downloadTweets)
-  .then(TWEET.displayTweets);
+  .then((tweets) => {
+    $('#twitr-feed-timeline').html('');
+    new SimpleBar($('#twitr-feed-timeline')[0]);
+
+    TWEET.displayTweets(tweets);
+  });
 
   // Login/logout.
   twitrLogin.on('click', () => {
