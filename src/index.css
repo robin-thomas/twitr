@@ -109,6 +109,8 @@ body {
   color: #8899a6;
   box-shadow: none;
   outline: none;
+  font-size: 15px;
+  line-height: 27px;
 }
 
 #content .twitr-container > .row > .col-md-7,

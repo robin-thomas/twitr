@@ -114,7 +114,7 @@ $(document).ready(() => {
       userIcons.show();
 
       const avatar = `https://avatars.dicebear.com/v2/gridy/${NEAR.getAccount()}.svg`;
-      $('.user-feed-icon').html(`<img src="${avatar}" style="width:30px;height:30px" />`);
+      $('.user-feed-icon').html(`<img src="${avatar}" style="width:30px;height:30px;margin:auto" />`);
     } else {
       tweetDiv.hide();
       userIcons.hide();
