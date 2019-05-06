@@ -244,16 +244,16 @@ $(document).ready(() => {
       case 'HOME-TWEETS':
         TWEET.downloadTweets().then((tweets) => {
           $('#twitr-feed-timeline').html('');
-          new SimpleBar($('#twitr-feed-timeline')[0]);
           TWEET.displayTweets(tweets);
+          new SimpleBar($('#twitr-feed-timeline')[0]);
         });
         break;
 
       case 'OWN-TWEETS':
         TWEET.getTweetsOfAccount().then((tweets) => {
           $('#twitr-feed-timeline').html('');
-          new SimpleBar($('#twitr-feed-timeline')[0]);
           TWEET.displayTweets(tweets);
+          new SimpleBar($('#twitr-feed-timeline')[0]);
         });
         break;
     }
