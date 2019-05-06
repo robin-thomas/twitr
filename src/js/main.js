@@ -220,6 +220,9 @@ $(document).ready(() => {
   $('#header-navbar .header-icon').on('click', function() {
     const id = $(this).attr('id');
 
+    $('#header-navbar .header-icon').removeClass('header-icon-active');
+    $(this).addClass(header-icon-active);
+
     switch (id.toUpperCase()) {
       case 'HOME-TWEETS':
         $('#twitr-feed-timeline').html('');
