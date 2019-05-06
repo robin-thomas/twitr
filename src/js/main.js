@@ -245,7 +245,8 @@ $(document).ready(() => {
         TWEET.downloadTweets().then((tweets) => {
           $('#twitr-feed-timeline').html('');
           TWEET.displayTweets(tweets);
-          new SimpleBar($('#twitr-feed-timeline')[0]);
+          const el = new SimpleBar($('#twitr-feed-timeline')[0]);
+          el.recalculate();
         });
         break;
 
@@ -253,7 +254,8 @@ $(document).ready(() => {
         TWEET.getTweetsOfAccount().then((tweets) => {
           $('#twitr-feed-timeline').html('');
           TWEET.displayTweets(tweets);
-          new SimpleBar($('#twitr-feed-timeline')[0]);
+          const el = new SimpleBar($('#twitr-feed-timeline')[0]);
+          el.recalculate();
         });
         break;
     }
