@@ -288,4 +288,8 @@ $(document).ready(() => {
     });
   });
 
+  $('#twitr-feed-timeline').on('click', '.tweet-hashtag', function(e) {
+    e.preventDefault();
+  });
+
 });

@@ -75,10 +75,14 @@ const TWEET = {
 
   displayTweets: (tweets) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const hashtagRegex = /(^|\s)(#[a-z\d-]+)/ig;
 
     for (const tweet of tweets) {
-      const text = tweet.text.replace(urlRegex, (url) => {
+      let text = tweet.text.replace(urlRegex, (url) => {
         return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
+      });
+      text = text.replace(hashtagRegex, (hashtag) => {
+        return `<a href="#" class="tweet-hashtag">${hashtag}</a>`;
       });
 
       const author = tweet.author;
