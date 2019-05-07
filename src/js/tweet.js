@@ -77,6 +77,15 @@ const TWEET = {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const hashtagRegex = /(^|\s)(#[a-z\d-]+)/ig;
 
+    let ele = $('#twitr-feed-timeline').find('.simplebar-content');
+    if (ele.length === 0) {
+      ele = $('#twitr-feed-timeline');
+    }
+
+    if (ele.find('.row').length === 0) {
+      ele.prepend('<div class="row"></row>');
+    }
+
     for (const tweet of tweets) {
       let text = tweet.text.replace(urlRegex, (url) => {
         return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
@@ -154,11 +163,6 @@ const TWEET = {
                       </div>
                     </div>
                   </div>`;
-
-      let ele = $('#twitr-feed-timeline').find('.simplebar-content');
-      if (ele.length === 0) {
-        ele = $('#twitr-feed-timeline');
-      }
       ele.prepend(row);
     }
   },
