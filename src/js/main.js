@@ -384,6 +384,8 @@ $(document).ready(() => {
         throw new Error('Unable to update the tweet!');
       }
 
+      console.log(result);
+
       const tweetPos = $(`#twitr-feed-timeline .tweet-display-id-${tweetId}`);
 
       // update the tweet in UI.
