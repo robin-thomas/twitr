@@ -16,7 +16,7 @@ $(document).ready(() => {
 
   const userIcons = $('#header-navbar .user-icon');
   const tweetLoading = $('#twitter-feed-loader');
-  const updateTweet = $('##update-tweet');
+  const updateTweet = $('#update-tweet');
 
   const twitrLogin = $('#twitr-login');
 
