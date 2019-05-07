@@ -41,6 +41,30 @@ const TWEET = {
     }
   },
 
+  updateTweet: async (text, dataURI = null) => {
+    try {
+      // Validate.
+      TWEET.validateTweet(text);
+
+      // Upload the image to IPFS.
+      const isIPFSLink = /^https:\/\/ipfs.infura.io\/ipfs\//.test(dataURI);
+      const imgUrl = dataURI !== null && dataURI !== '#' ?
+        (isIPFSLink !== true ? await IPFS.uploadImage(IMG.dataURIToBlob(dataURI)) : dataURI) : '';
+
+      // update the tweet in the contract.
+      const result = await NEAR.contract.updateTweet({
+        text: text,
+        created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+        img: imgUrl,
+      });
+
+      // TODO: update the tweet in UI.
+
+    } catch (err) {
+      throw err;
+    }
+  },
+
   validateTweet: (text) => {
     try {
       if (text === null || text === undefined || text.trim().length === 0) {

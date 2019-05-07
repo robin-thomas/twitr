@@ -316,11 +316,45 @@ $(document).ready(() => {
         tweetImgShow.fadeIn();
         tweetImgDelete.fadeIn();
       }
+      $('.tweet-text-progress').circleProgress({
+        startAngle: -1.5,
+        size: 20,
+        value: tweet.text.length / 140,
+        fill: {
+          color: '#1da1f2'
+        },
+        animation: false,
+      });
       tweetInputDialog.modal('show');
 
     } catch (err) {
       console.log(err);
     }
+  });
+
+  updateTweet.on('click', async () => {
+    const btn = updateTweet;
+
+    const loadingText = '<i class="fas fa-spinner fa-spin"></i>';
+    btn.data('original-text', btn.html());
+    btn.html(loadingText);
+
+    tweetTextareaDisable.show();
+
+    const text = tweetArea.val();
+    const dataURI = tweetImgShow.attr('src');
+
+    try {
+      await TWEET.updateTweet(text, dataURI);
+
+      tweetInputDialog.modal('hide');
+    } catch (err) {
+      console.log(err);
+      alert(err.message);
+    }
+
+    tweetTextareaDisable.hide();
+    btn.html(btn.data('original-text'));
   });
 
 });
