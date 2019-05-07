@@ -35,7 +35,7 @@ const NEAR = {
       // Initializing the contract.
       NEAR.contract = await near.loadContract(NEAR.contractId, {
         viewMethods: ['getTweets', 'getTweetsOfAccount'],
-        changeMethods: ['addTweet', 'toggleLike', 'retweet', 'editTweet', 'fix'],
+        changeMethods: ['addTweet', 'toggleLike', 'retweet', 'editTweet'],
         sender: NEAR.accountId,
       });
 
@@ -43,8 +43,6 @@ const NEAR = {
       if (NEAR.walletAccount.isSignedIn()) {
         twitrLogin.removeClass('twitr-login').addClass('twitr-logout');
         twitrLogin.html('Logout');
-
-        await NEAR.contract.fix();
       } else {
         twitrLogin.removeClass('twitr-logout').addClass('twitr-login');
         twitrLogin.html('Login');
