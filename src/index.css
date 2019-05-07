@@ -50,11 +50,14 @@ body {
   padding-top: 5px;
 }
 
-.tweet-action-retweet, .tweet-action-like {
+.tweet-action-retweet,
+.tweet-action-like,
+.tweet-edit {
   cursor:pointer;
 }
 
-.tweet-action-retweeted, .tweet-action-liked {
+.tweet-action-retweeted,
+.tweet-action-liked {
   color:#1da1f2;
 }
 

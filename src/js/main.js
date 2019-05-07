@@ -298,4 +298,25 @@ $(document).ready(() => {
     e.preventDefault();
   });
 
+  $('#twitr-feed-timeline').on('click', '.tweet-edit', function(e) {
+    try {
+      // Get the tweet.
+      const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
+      const json = decodeURIComponent(parent.find('.tweet-encoded').val());
+      let tweet = JSON.parse(json);
+
+      // Load the tweet.
+      tweetArea.val(tweet.text);
+      if (tweet.img !=== undefined || tweet.img !== null || tweet.img !== '') {
+        tweetImgShow.attr('src', tweet.img);
+        tweetImgShow.fadeIn();
+        tweetImgDelete.fadeIn();
+      }
+      tweetInputDialog.modal('show');
+
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
 });
