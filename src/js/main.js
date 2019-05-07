@@ -347,7 +347,23 @@ $(document).ready(() => {
 
     try {
       const tweetId = parseInt($('#edit-tweet-id').val());
-      await TWEET.updateTweet(tweetId, text, dataURI);
+      const result = await TWEET.updateTweet(tweetId, text, dataURI);
+
+      if (result === null) {
+        throw new Error('Unable to update the tweet!');
+      }
+
+      const tweetPos = $(`#twitr-feed-timeline .tweet-display-id-${tweetId}`);
+
+      // update the tweet in UI.
+      const tweetEncoded = encodeURIComponent(JSON.stringify(result));
+      tweetPos.find('.tweet-encoded').val(tweetEncoded);
+
+      const decodedText = TWEET.tweetDecode(result.text);
+      tweetPos.find('.tweet-parsed-text').html(created);
+
+      const created = TWEET.createTweet(result.created);
+      tweetPos.find('.tweet-created-time').html(`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;${created}`);
 
       tweetInputDialog.modal('hide');
     } catch (err) {

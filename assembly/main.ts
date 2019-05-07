@@ -88,7 +88,7 @@ export function retweet(id: i32, created: string, author: string, avatar: string
   let retweetsMap = collections.map<string, string>('retweets:' + id.toString());
 
   let newTweet:Tweet = null;
-  if (tweets[id].sender !== context.sender &&
+  if (tweets[id].sender != context.sender &&
       !retweetsMap.contains(context.sender)) {
     // Increase the retweet count.
     retweetsMap.set(context.sender, "");
@@ -144,21 +144,23 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
 // Edit a tweet.
 // NOTE: This is a change method. Which means it will modify the state.
 // But right now we don't distinguish them with annotations yet.
-export function editTweet(id: i32, text: string, created: string, img: string): bool {
+export function editTweet(id: i32, text: string, created: string, img: string): Tweet {
   // Check whether tweet exists.
-  if (tweets.length >= id) {
-    return false;
+  if (tweets.length <= id) {
+    return null;
   }
 
   // Not own tweet.
-  if (tweets[id].sender !== context.sender) {
-    return false;
+  if (tweets[id].sender != context.sender) {
+    return null;
   }
 
   // Update the tweet.
-  tweets[id].text = text;
-  tweets[id].created = created;
-  tweets[id].img = img;
+  let tweet = tweets[id];
+  tweet.text = text;
+  tweet.created = created;
+  tweet.img = img;
+  tweets[id] = tweet;
 
-  return true;
+  return tweet;
 }

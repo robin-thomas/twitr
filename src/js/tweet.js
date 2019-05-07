@@ -58,9 +58,8 @@ const TWEET = {
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
         img: imgUrl,
       });
-      console.log(result);
 
-      // TODO: update the tweet in UI.
+      return result.lastResult;
 
     } catch (err) {
       throw err;
@@ -99,10 +98,40 @@ const TWEET = {
     }
   },
 
-  displayTweets: (tweets) => {
+  tweetDecode: (tweetText) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const hashtagRegex = /(^|\s)(#[a-z\d-]+)/ig;
+    const newlineRegex = /(?:\r\n|\r|\n)/g;
 
+    let text = tweetText.replace(urlRegex, (url) => {
+      return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
+    });
+    text = text.replace(hashtagRegex, (hashtag) => {
+      return `<a href="#" class="tweet-hashtag">${hashtag}</a>`;
+    });
+
+    return text.replace(newlineRegex, '<br />');
+  },
+
+  tweetTime: (created) => {
+    const end = moment.utc();
+    const start = moment.utc(created);
+
+    created = moment.duration(end.diff(start)).asHours();
+    if (created > 24) {
+      created = start.local().format('MMM D');
+    } else if (created < 1) {
+      created = moment.duration(end.diff(start)).asMinutes();
+      created = Math.ceil(created);
+      created += 'm';
+    } else {
+      created = `${Math.ceil(created)}h`;
+    }
+
+    return created;
+  },
+
+  displayTweets: (tweets) => {
     let ele = $('#twitr-feed-timeline').find('.simplebar-content');
     if (ele.length === 0) {
       ele = $('#twitr-feed-timeline');
@@ -113,35 +142,17 @@ const TWEET = {
     }
 
     for (const tweet of tweets) {
-      let text = tweet.text.replace(urlRegex, (url) => {
-        return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
-      });
-      text = text.replace(hashtagRegex, (hashtag) => {
-        return `<a href="#" class="tweet-hashtag">${hashtag}</a>`;
-      });
-      text = text.replace(/(?:\r\n|\r|\n)/g, '<br />');
-
+      let text = TWEET.tweetDecode(tweet.text);
       const author = tweet.author;
       const img = tweet.img;
 
       // Construct the timestamp.
-      const end = moment.utc();
-      const start = moment.utc(tweet.created);
-      let created = moment.duration(end.diff(start)).asHours();
-      if (created > 24) {
-        created = start.local().format('MMM D');
-      } else if (created < 1) {
-        created = moment.duration(end.diff(start)).asMinutes();
-        created = Math.ceil(created);
-        created += 'm';
-      } else {
-        created = `${Math.ceil(created)}h`;
-      }
+      const created = TWEET.createTweet(tweet.created);
 
       // Encode the tweet.
       const tweetEncoded = encodeURIComponent(JSON.stringify(tweet));
 
-      const row = `<div class="row no-gutters">
+      const row = `<div class="row no-gutters" id="tweet-display-id-${tweet.id}">
                     <input type="hidden" class="tweet-encoded" value="${tweetEncoded}" />
                     <div class="col-md-1">
                       ${tweet.avatar !== undefined ? `<img src="${tweet.avatar}" style="width:30px;height:30px" />` :
@@ -153,11 +164,11 @@ const TWEET = {
                       <div class="row">
                         <div class="col">
                           <a href="#" class="profile-link" style="color:white;font-weight:bold">${author}</a>
-                          <span style="color:#8899a6;font-size:13px">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;${created}</span>
+                          <span class="tweet-created-time" style="color:#8899a6;font-size:13px">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;${created}</span>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col" style="color:white;font-size:15px">${text}</div>
+                        <div class="col tweet-parsed-text" style="color:white;font-size:15px">${text}</div>
                       </div>
                       ${img !== '' ? `<div class="row"><div class="col">
                                               <img style="margin-top:10px;width:100%;border-radius:10px;border:1px solid #38444d"
@@ -167,25 +178,25 @@ const TWEET = {
                         <div class="col-md-2">
                           <span>
                             ${tweet.likes === undefined ?
-                              `<i class="fas fa-heart tweet-action-like"></i>
+                              `<i class="fas fa-heart tweet-action-like" title="Like tweet"></i>
                                 <span>&nbsp;&nbsp;0</span>` :
-                              `<i class="fas fa-heart tweet-action-like ${tweet.hasLiked ? 'tweet-action-liked':''}"></i>
+                              `<i class="fas fa-heart tweet-action-like ${tweet.hasLiked ? 'tweet-action-liked':''}" title="Like tweet"></i>
                                 <span ${tweet.hasLiked ? 'style="color:#1da1f2"' : ''}>&nbsp;&nbsp;${tweet.likes}</span>`}
                           </span>
                         </div>
                         <div class="col-md-2">
                           <span>
                             ${tweet.retweets === undefined ?
-                              `<i class="fas fa-retweet tweet-action-retweet"></i>
+                              `<i class="fas fa-retweet tweet-action-retweet" title="Retweet"></i>
                                 <span>&nbsp;&nbsp;0</span>` :
-                              `<i class="fas fa-retweet tweet-action-retweet ${tweet.hasRetweeted ? 'tweet-action-retweeted':''}"></i>
+                              `<i class="fas fa-retweet tweet-action-retweet ${tweet.hasRetweeted ? 'tweet-action-retweeted':''}" title="Retweet"></i>
                                 <span ${tweet.hasRetweeted ? 'style="color:#1da1f2"' : ''}>&nbsp;&nbsp;${tweet.retweets}</span>`}
                           </span>
                         </div>
                         <div class="col-md-2">
                           <span>
                             ${tweet.sender === NEAR.getAccount() ?
-                              '<i class="fas fa-edit tweet-edit"></i>' : ''}
+                              '<i class="fas fa-edit tweet-edit" title="Edit tweet"></i>' : ''}
                           </span>
                       </div>
                     </div>
