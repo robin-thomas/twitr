@@ -307,7 +307,7 @@ $(document).ready(() => {
 
       // Load the tweet.
       tweetArea.val(tweet.text);
-      if (tweet.img !== undefined || tweet.img !== null || tweet.img !== '') {
+      if (tweet.img !== undefined && tweet.img !== null && tweet.img !== '') {
         tweetImgShow.attr('src', tweet.img);
         tweetImgShow.fadeIn();
         tweetImgDelete.fadeIn();
