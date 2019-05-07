@@ -98,6 +98,12 @@ $(document).ready(() => {
       await TWEET.createTweet(text, dataURI);
 
       tweetInputDialog.modal('hide');
+
+      // Reset.
+      tweetArea.val('');
+      tweetImgDelete.fadeOut();
+      tweetImgShow.fadeOut();
+      tweetImgShow.attr('src', '');
     } catch (err) {
       console.log(err);
       alert(err.message);
