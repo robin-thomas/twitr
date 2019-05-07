@@ -61,6 +61,10 @@ body {
   color:#1da1f2;
 }
 
+#update-tweet {
+  display: none;
+}
+
 .header-icon {
   padding-bottom: 5px;
   text-align: center;

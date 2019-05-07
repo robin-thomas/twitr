@@ -16,12 +16,15 @@ $(document).ready(() => {
 
   const userIcons = $('#header-navbar .user-icon');
   const tweetLoading = $('#twitter-feed-loader');
+  const updateTweet = $('##update-tweet');
 
   const twitrLogin = $('#twitr-login');
 
   // Show the tweet input window.
   tweetDiv.on('click', () => {
     // Reset.
+    updateTweet.hide();
+    tweetSubmit.show();
     tweetArea.val('');
     tweetImgDelete.fadeOut();
     tweetImgShow.fadeOut();
@@ -306,6 +309,8 @@ $(document).ready(() => {
       let tweet = JSON.parse(json);
 
       // Load the tweet.
+      updateTweet.show();
+      tweetSubmit.hide();
       tweetArea.val(tweet.text);
       if (tweet.img !== undefined && tweet.img !== null && tweet.img !== '') {
         tweetImgShow.attr('src', tweet.img);
