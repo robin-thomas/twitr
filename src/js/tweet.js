@@ -93,6 +93,7 @@ const TWEET = {
       text = text.replace(hashtagRegex, (hashtag) => {
         return `<a href="#" class="tweet-hashtag">${hashtag}</a>`;
       });
+      text = text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
       const author = tweet.author;
       const img = tweet.img;
