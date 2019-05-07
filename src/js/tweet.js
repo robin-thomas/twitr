@@ -146,6 +146,11 @@ const TWEET = {
                                 <span ${tweet.hasRetweeted ? 'style="color:#1da1f2"' : ''}>&nbsp;&nbsp;${tweet.retweets}</span>`}
                           </span>
                         </div>
+                        <div class="col-md-2">
+                          <span>
+                            ${tweet.sender === NEAR.getAccount() ?
+                              '<i class="fas fa-edit tweet-edit"></i>' : ''}
+                          </span>
                       </div>
                     </div>
                   </div>`;
