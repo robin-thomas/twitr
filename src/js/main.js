@@ -133,8 +133,38 @@ $(document).ready(() => {
   .then((tweets) => {
     tweetLoading.hide();
     TWEET.displayTweets(tweets);
-    new SimpleBar($('#twitr-feed-timeline')[0]);
+    const scrollbar = new SimpleBar($('#twitr-feed-timeline')[0]);
     $('#tweet-scroll-up').fadeIn();
+
+    // Set the scroll down event handler.
+    const tweetScrollHandler = async function() {
+      if (this.scrollTop + this.clientHeight + 25 >= this.scrollHeight) {
+        console.log('scrolled to bottom');
+        $(this).off('scroll');
+
+        // Load the next set of tweets.
+        const ele = $('#twitr-feed-timeline').find('.tweets-row').last();
+        if (ele !== undefined && ele !== null) {
+          const tweetId = parseInt(ele.attr('id').replace('tweet-display-id-', ''));
+
+          try {
+            if (tweetId > 0) {
+              const tweets = await TWEET.downloadTweets(tweetId - 1);
+              TWEET.displayTweets(tweets);
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        }
+
+        // Turn ON the handler if there are more tweets to load.
+        if ($('#twitr-feed-timeline').find('#tweet-display-id-0').length === 0) {
+          $(this).on('scroll', tweetScrollHandler);
+        }
+      }
+    };
+    $(scrollbar.getScrollElement()).on('scroll', tweetScrollHandler);
+
   });
 
   // Login/logout.

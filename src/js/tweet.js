@@ -76,10 +76,11 @@ const TWEET = {
     }
   },
 
-  downloadTweets: async () => {
+  downloadTweets: async (tweetId = null) => {
     try {
       const tweets = await NEAR.contract.getTweets({
         sender: NEAR.getAccount(),
+        end: tweetId,
       });
       return tweets;
     } catch (err) {
@@ -201,7 +202,7 @@ const TWEET = {
                       </div>
                     </div>
                   </div>`;
-      ele.prepend(row);
+      ele.append(row);
     }
   },
 

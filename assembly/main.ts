@@ -33,18 +33,20 @@ export function addTweet(tweet: Tweet): Tweet {
   return tweet;
 }
 
-// Returns an array of N messages from a given position (defaults to end).
+// Returns an array of N messages from a given index (defaults to last index).
 // NOTE: This is a view method. Which means it should NOT modify the state.
 export function getTweets(sender: string, end: i32): Array<Tweet> {
-  end = end || tweets.length;
+  end = end || (tweets.length - 1);
   sender = sender || ""
 
   let numTweets = min(TWEET_LIMIT, tweets.length);
-  let startIndex = end - numTweets;
+  if (numTweets > end) {
+    numTweets = end + 1;
+  }
 
   let result = new Array<Tweet>(numTweets);
   for (let i = 0; i < numTweets; i++) {
-    result[i] = tweets[i + startIndex];
+    result[i] = tweets[end - i];
 
     // Get the "likes" count.
     let likesMap = collections.map<string, string>('likes:' + result[i].id.toString());
