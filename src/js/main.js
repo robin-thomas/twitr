@@ -24,11 +24,10 @@ $(document).ready(() => {
   tweetDiv.on('click', () => {
     // Reset.
     updateTweet.hide();
-    tweetSubmit.show();
+    tweetSubmit.show().attr('disabled', true);
     tweetArea.val('');
     tweetImgDelete.fadeOut();
-    tweetImgShow.fadeOut();
-    tweetImgShow.attr('src', '');
+    tweetImgShow.fadeOut().attr('src', '');
 
     tweetInputDialog.modal('show');
   });
