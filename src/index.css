@@ -180,3 +180,14 @@ body {
   border-radius: 10px;
   display: none;
 }
+
+#tweet-scroll-up {
+  position: absolute;
+  bottom: 10px;
+  font-size: 50px;
+  color: #1da1f2;
+  right: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 2em black;
+  display: none;
+}

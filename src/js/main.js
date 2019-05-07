@@ -134,6 +134,7 @@ $(document).ready(() => {
     tweetLoading.hide();
     TWEET.displayTweets(tweets);
     new SimpleBar($('#twitr-feed-timeline')[0]);
+    $('#tweet-scroll-up').fadeIn();
   });
 
   // Login/logout.
@@ -360,9 +361,9 @@ $(document).ready(() => {
       tweetPos.find('.tweet-encoded').val(tweetEncoded);
 
       const decodedText = TWEET.tweetDecode(result.text);
-      tweetPos.find('.tweet-parsed-text').html(created);
+      tweetPos.find('.tweet-parsed-text').html(decodedText);
 
-      const created = TWEET.createTweet(result.created);
+      const created = TWEET.tweetTime(result.created);
       tweetPos.find('.tweet-created-time').html(`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;${created}`);
 
       tweetInputDialog.modal('hide');
@@ -373,6 +374,10 @@ $(document).ready(() => {
 
     tweetTextareaDisable.hide();
     btn.html(btn.data('original-text'));
+  });
+
+  $('#tweet-scroll-up').on('click', () => {
+    $('#twitr-feed-timeline .tweets-row').first()[0].scrollIntoView({ behavior: 'smooth' });
   });
 
 });
