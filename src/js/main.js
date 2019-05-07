@@ -386,7 +386,7 @@ $(document).ready(() => {
 
       console.log(result);
 
-      const tweetPos = $(`#twitr-feed-timeline .tweet-display-id-${tweetId}`);
+      const tweetPos = $(`#twitr-feed-timeline #tweet-display-id-${tweetId}`);
 
       // update the tweet in UI.
       const tweetEncoded = encodeURIComponent(JSON.stringify(result));
