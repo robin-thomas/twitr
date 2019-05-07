@@ -129,6 +129,7 @@ $(document).ready(() => {
       $('.user-feed-icon').html('');
     }
   })
+  .then(NEAR.contract.fix)
   .then(TWEET.downloadTweets)
   .then((tweets) => {
     tweetLoading.hide();
