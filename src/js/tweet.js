@@ -147,7 +147,7 @@ const TWEET = {
       const img = tweet.img;
 
       // Construct the timestamp.
-      const created = TWEET.createTweet(tweet.created);
+      const created = TWEET.tweetTime(tweet.created);
 
       // Encode the tweet.
       const tweetEncoded = encodeURIComponent(JSON.stringify(tweet));
