@@ -140,3 +140,25 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
   }
   return result;
 }
+
+// Edit a tweet.
+// NOTE: This is a change method. Which means it will modify the state.
+// But right now we don't distinguish them with annotations yet.
+export function editTweet(id: i32, text: string, created: string, img: string): bool {
+  // Check whether tweet exists.
+  if (tweets.length >= id) {
+    return false;
+  }
+
+  // Not own tweet.
+  if (tweets[id].sender !== context.sender) {
+    return false;
+  }
+
+  // Update the tweet.
+  tweets[id].text = text;
+  tweets[id].created = created;
+  tweets[id].img = img;
+
+  return true;
+}
