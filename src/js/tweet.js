@@ -58,6 +58,7 @@ const TWEET = {
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
         img: imgUrl,
       });
+      console.log(result);
 
       // TODO: update the tweet in UI.
 
