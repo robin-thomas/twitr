@@ -308,6 +308,7 @@ $(document).ready(() => {
       let tweet = JSON.parse(json);
 
       // Load the tweet.
+      $('#edit-tweet-id').val(tweet.id.toString());
       updateTweet.show();
       tweetSubmit.hide();
       tweetArea.val(tweet.text);
@@ -345,7 +346,8 @@ $(document).ready(() => {
     const dataURI = tweetImgShow.attr('src');
 
     try {
-      await TWEET.updateTweet(text, dataURI);
+      const tweetId = parseInt($('#edit-tweet-id').val());
+      await TWEET.updateTweet(tweetId, text, dataURI);
 
       tweetInputDialog.modal('hide');
     } catch (err) {

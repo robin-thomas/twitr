@@ -41,7 +41,7 @@ const TWEET = {
     }
   },
 
-  updateTweet: async (text, dataURI = null) => {
+  updateTweet: async (id, text, dataURI = null) => {
     try {
       // Validate.
       TWEET.validateTweet(text);
@@ -52,7 +52,8 @@ const TWEET = {
         (isIPFSLink !== true ? await IPFS.uploadImage(IMG.dataURIToBlob(dataURI)) : dataURI) : '';
 
       // update the tweet in the contract.
-      const result = await NEAR.contract.updateTweet({
+      const result = await NEAR.contract.editTweet({
+        id: id,
         text: text,
         created: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
         img: imgUrl,
