@@ -138,10 +138,6 @@ const TWEET = {
       ele = $('#twitr-feed-timeline');
     }
 
-    if (ele.find('.row').length === 0) {
-      ele.prepend('<div class="row"></row>');
-    }
-
     for (const tweet of tweets) {
       let text = TWEET.tweetDecode(tweet.text);
       const author = tweet.author;
