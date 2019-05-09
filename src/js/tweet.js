@@ -34,7 +34,7 @@ const TWEET = {
       console.log(tweetCreated);
 
       // display it as row in UI (at the top).
-      TWEET.displayTweets([tweetCreated]);
+      TWEET.displayTweets([tweetCreated], true /* prepend */);
 
     } catch (err) {
       throw err;
@@ -132,7 +132,7 @@ const TWEET = {
     return created;
   },
 
-  displayTweets: (tweets) => {
+  displayTweets: (tweets, prepend = false) => {
     let ele = $('#twitr-feed-timeline').find('.simplebar-content');
     if (ele.length === 0) {
       ele = $('#twitr-feed-timeline');
@@ -198,7 +198,12 @@ const TWEET = {
                       </div>
                     </div>
                   </div>`;
-      ele.append(row);
+
+      if (prepend === false) {
+        ele.append(row);
+      } else {
+        ele.prepend(row);
+      }
     }
   },
 
