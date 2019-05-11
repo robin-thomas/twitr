@@ -98,7 +98,6 @@ $(document).ready(() => {
     try {
       const text = tweetArea.val();
       const dataURI = tweetImgShow.attr('src');
-      console.log(dataURI);
 
       await TWEET.createTweet(text, dataURI);
 
