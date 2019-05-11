@@ -189,6 +189,11 @@ body {
   display: none;
 }
 
+#twitr-feed-timeline .emoji {
+  width:20px;
+  margin:3px;
+}
+
 #tweet-scroll-up {
   position: absolute;
   bottom: 10px;

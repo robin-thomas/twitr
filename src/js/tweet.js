@@ -13,7 +13,7 @@ const TWEET = {
       const accountId = NEAR.getAccount();
 
       // Upload the image to IPFS.
-      const imgUrl = dataURI !== undefined && dataURI !== null && dataURI !== '#' && dataURI.trim().length !== 0 ?
+      const imgUrl = dataURI !== undefined && dataURI !== null && dataURI !== '#' && dataURI.trim().length > 0 ?
         await IPFS.uploadImage(IMG.dataURIToBlob(dataURI)) : '';
 
       const tweet = {
@@ -104,13 +104,13 @@ const TWEET = {
     const hashtagRegex = /(^|\s)(#[a-z\d-]+)/ig;
     const newlineRegex = /(?:\r\n|\r|\n)/g;
 
-    let text = twemoji.parse(tweetText);
-    text = tweetText.replace(urlRegex, (url) => {
+    let text = tweetText.replace(urlRegex, (url) => {
       return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
     });
     text = text.replace(hashtagRegex, (hashtag) => {
       return `<a href="#" class="tweet-hashtag">${hashtag}</a>`;
     });
+    text = twemoji.parse(text);
 
     return text.replace(newlineRegex, '<br />');
   },
@@ -140,11 +140,11 @@ const TWEET = {
     }
 
     for (const tweet of tweets) {
-      let text = TWEET.tweetDecode(tweet.text);
       const author = tweet.author;
       const img = tweet.img;
 
-      // Construct the timestamp.
+      // Construct the tweet text & timestamp.
+      const text = TWEET.tweetDecode(tweet.text);
       const created = TWEET.tweetTime(tweet.created);
 
       // Encode the tweet.

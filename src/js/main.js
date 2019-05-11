@@ -425,4 +425,17 @@ $(document).ready(() => {
     }
   });
 
+  tweetInputDialog.on('hide.bs.modal', (e) => {
+    const html = tweetArea.val();
+    // TODO: verify its not update tweet.
+
+    if (html.length > 0) {
+      if (!confirm('Discard draft?')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+      }
+    }
+  });
+
 });
