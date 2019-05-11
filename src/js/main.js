@@ -25,6 +25,7 @@ $(document).ready(() => {
     // Reset.
     updateTweet.hide();
     tweetSubmit.show().attr('disabled', true);
+    $('#edit-tweet-id').val('');
     tweetArea.val('').focus();
     tweetImgDelete.fadeOut();
     tweetImgShow.fadeOut().attr('src', '');
