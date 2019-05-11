@@ -25,9 +25,18 @@ $(document).ready(() => {
     // Reset.
     updateTweet.hide();
     tweetSubmit.show().attr('disabled', true);
-    tweetArea.val('');
+    tweetArea.val('').focus();
     tweetImgDelete.fadeOut();
     tweetImgShow.fadeOut().attr('src', '');
+    $('.tweet-text-progress').circleProgress({
+      startAngle: -1.5,
+      size: 20,
+      value: 0,
+      fill: {
+        color: '#1da1f2'
+      },
+      animation: false,
+    });
 
     tweetInputDialog.modal('show');
   });
@@ -36,29 +45,16 @@ $(document).ready(() => {
   tweetArea.on('input', () => {
     const val = tweetArea.val();
 
-    if (val === null || val === undefined || val === 'What\'s happening?' ||
+    if (val === null || val === undefined ||
+        val === 'What\'s happening?' ||
         val.length === 0) {
       tweetSubmit.attr('disabled', true);
 
       $('.tweet-text-progress').circleProgress('value', 0);
-
     } else {
       tweetSubmit.attr('disabled', false);
 
-      const length = val.length;
-      if (length === 1) {
-        $('.tweet-text-progress').circleProgress({
-          startAngle: -1.5,
-          size: 20,
-          value: length / 140,
-          fill: {
-            color: '#1da1f2'
-          },
-          animation: false,
-        });
-      } else {
-        $('.tweet-text-progress').circleProgress('value', length / 140);
-      }
+      $('.tweet-text-progress').circleProgress('value', val.length / 140);
     }
   });
 
@@ -348,6 +344,7 @@ $(document).ready(() => {
         tweetImgShow.fadeIn();
         tweetImgDelete.fadeIn();
       }
+
       $('.tweet-text-progress').circleProgress({
         startAngle: -1.5,
         size: 20,
@@ -357,6 +354,7 @@ $(document).ready(() => {
         },
         animation: false,
       });
+
       tweetInputDialog.modal('show');
 
     } catch (err) {
@@ -410,6 +408,21 @@ $(document).ready(() => {
 
   $('#tweet-scroll-up').on('click', () => {
     $('#twitr-feed-timeline .tweets-row').first()[0].scrollIntoView({ behavior: 'smooth' });
+  });
+
+  $('#emoji-select-click').on('click', () => {
+    $('#emoji-select').toggle();
+  });
+
+  $('#emoji-select .emoji').on('click', function() {
+    const max = tweetArea.attr('maxlength');
+
+    let html = tweetArea.val();
+    if ((html.length + 1) < max) {
+      html += $(this).attr('alt');
+      tweetArea.val(html);
+      $('.tweet-text-progress').circleProgress('value', tweetArea.val().length / 140);
+    }
   });
 
 });

@@ -121,8 +121,16 @@ body {
   line-height: 27px;
 }
 
-#content .twitr-container > .row > .col-md-7,
-#content .twitr-container > .row > .col-md-4 {
+#emoji-select > .container > .row {
+  margin-bottom: 5px;
+}
+
+#emoji-select > .container .emoji {
+  cursor: pointer;
+}
+
+#content .twitr-container > .row > .col-md-8,
+#content .twitr-container > .row > .col-md-3 {
   background: rgb(28, 41, 56);
 }
 

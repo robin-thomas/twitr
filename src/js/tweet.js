@@ -104,7 +104,8 @@ const TWEET = {
     const hashtagRegex = /(^|\s)(#[a-z\d-]+)/ig;
     const newlineRegex = /(?:\r\n|\r|\n)/g;
 
-    let text = tweetText.replace(urlRegex, (url) => {
+    let text = twemoji.parse(tweetText);
+    text = tweetText.replace(urlRegex, (url) => {
       return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
     });
     text = text.replace(hashtagRegex, (hashtag) => {

@@ -8,7 +8,7 @@ module.exports = (grunt) => {
       ],
       options: {
         configFile: './eslint.json',
-        globals: ['$', 'nearlib', 'SimpleBar'],
+        globals: ['$', 'nearlib', 'SimpleBar', 'twemoji'],
       },
     },
     browserify: {
