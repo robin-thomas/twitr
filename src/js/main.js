@@ -95,10 +95,11 @@ $(document).ready(() => {
 
     tweetTextareaDisable.show();
 
-    const text = tweetArea.val();
-    const dataURI = tweetImgShow.attr('src');
-
     try {
+      const text = tweetArea.val();
+      const dataURI = tweetImgShow.attr('src');
+      console.log(dataURI);
+
       await TWEET.createTweet(text, dataURI);
 
       tweetInputDialog.modal('hide');
