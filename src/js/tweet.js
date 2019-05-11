@@ -13,7 +13,7 @@ const TWEET = {
       const accountId = NEAR.getAccount();
 
       // Upload the image to IPFS.
-      const imgUrl = dataURI !== null && dataURI !== '#' ?
+      const imgUrl = dataURI !== undefined && dataURI !== null && dataURI !== '#' ?
         await IPFS.uploadImage(IMG.dataURIToBlob(dataURI)) : '';
 
       const tweet = {
