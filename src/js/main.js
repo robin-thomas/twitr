@@ -427,7 +427,15 @@ $(document).ready(() => {
 
   tweetInputDialog.on('hide.bs.modal', (e) => {
     const html = tweetArea.val();
-    // TODO: verify its not update tweet.
+
+    // verify its not edit tweet operation.
+    try {
+      const tweetId = parseInt($('#edit-tweet-id').val());
+      if (!isNaN(tweetId) && tweetId >= 0) {
+        return;
+      }
+    } catch (err) {
+    }
 
     if (html.length > 0) {
       if (!confirm('Discard draft?')) {
