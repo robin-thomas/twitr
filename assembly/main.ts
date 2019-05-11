@@ -166,3 +166,32 @@ export function editTweet(id: i32, text: string, created: string, img: string): 
 
   return tweet;
 }
+
+// Returns an array of all tweets matching text string.
+// NOTE: This is a view method. Which means it should NOT modify the state.
+export function searchTweets(keyword: string, accountId: string): Array<Tweet> {
+  let numTweets = 0;
+  for (let i = 0; i < tweets.length; i++) {
+    if (tweets[i].text.indexOf(keyword) >= 0) {
+      numTweets++;
+    }
+  }
+
+  let result = new Array<Tweet>(numTweets);
+  for (let i = 0, j = -1; i < tweets.length; i++) {
+    if (tweets[i].text.indexOf(keyword) >= 0) {
+      result[++j] = tweets[i];
+
+      // Get the "likes" count.
+      let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
+      result[j].hasLiked = likesMap.contains(accountId);
+      result[j].likes = likesMap.count();
+
+      // Get the "retweets" count.
+      let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
+      result[j].hasRetweeted = retweetsMap.contains(accountId);
+      result[j].retweets = retweetsMap.count();
+    }
+  }
+  return result;
+}

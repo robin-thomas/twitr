@@ -99,6 +99,18 @@ const TWEET = {
     }
   },
 
+  searchTweets: async (keyword, accountId = null) => {
+    try {
+      const tweets = await NEAR.contract.searchTweets({
+        keyword: keyword,
+        accountId: accountId || NEAR.getAccount(),
+      });
+      return tweets;
+    } catch (err) {
+      throw err;
+    }
+  },
+
   tweetDecode: (tweetText) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const hashtagRegex = /(^|\s)(#[a-z\d-]+)/ig;

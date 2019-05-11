@@ -183,6 +183,14 @@ body {
   display: none;
 }
 
+#search-tweets {
+  border-radius: 15px;
+  background: #10171e;
+  border: 0;
+  color: #fff;
+  padding: 0 10px 0 50px;
+}
+
 #tweet-img-show {
   width: 100%;
   border-radius: 10px;
@@ -201,6 +209,5 @@ body {
   color: #1da1f2;
   right: 10px;
   cursor: pointer;
-  box-shadow: 0 0 2em black;
   display: none;
 }

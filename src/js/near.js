@@ -34,7 +34,7 @@ const NEAR = {
 
       // Initializing the contract.
       NEAR.contract = await near.loadContract(NEAR.contractId, {
-        viewMethods: ['getTweets', 'getTweetsOfAccount'],
+        viewMethods: ['getTweets', 'getTweetsOfAccount', 'searchTweets'],
         changeMethods: ['addTweet', 'toggleLike', 'retweet', 'editTweet'],
         sender: NEAR.accountId,
       });

@@ -17,6 +17,7 @@ $(document).ready(() => {
   const userIcons = $('#header-navbar .user-icon');
   const tweetLoading = $('#twitter-feed-loader');
   const updateTweet = $('#update-tweet');
+  const searchTweets = $('#search-tweets');
 
   const twitrLogin = $('#twitr-login');
 
@@ -444,6 +445,33 @@ $(document).ready(() => {
         e.stopImmediatePropagation();
         return false;
       }
+    }
+  });
+
+  searchTweets.on('input', function (e) {
+    if ($(this).val().trim().length === 0) {
+      tweetLoading.show();
+
+      TWEET.downloadTweets().then((tweets) => {
+        $('#twitr-feed-timeline').find('.simplebar-content').html('');
+        tweetLoading.hide();
+        TWEET.displayTweets(tweets);
+        new SimpleBar($('#twitr-feed-timeline')[0]);
+      });
+    }
+  });
+
+  searchTweets.on('keyup', function (e) {
+    if (e.keyCode === 13) {
+      const keyword = $(this).val().trim();
+
+      tweetLoading.show();
+      TWEET.searchTweets(keyword).then((tweets) => {
+        $('#twitr-feed-timeline').find('.simplebar-content').html('');
+        tweetLoading.hide();
+        TWEET.displayTweets(tweets);
+        new SimpleBar($('#twitr-feed-timeline')[0]);
+      });
     }
   });
 
