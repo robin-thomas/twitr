@@ -136,8 +136,12 @@ $(document).ready(() => {
 
     // Set the scroll down event handler.
     const tweetScrollHandler = async function() {
+      // Only for HOME page.
+      if ($('.header-icon-active').attr('id') !== 'home-tweets') {
+        return;
+      }
+
       if (this.scrollTop + this.clientHeight + 25 >= this.scrollHeight) {
-        console.log('scrolled to bottom');
         $(this).off('scroll');
 
         // Load the next set of tweets.
@@ -309,13 +313,13 @@ $(document).ready(() => {
 
     // Construct the cover pic.
     $('.twitr-feed-home').html(`
-      <div style="width:calc(100% + 15px);height:175px;
+      <div style="width:calc(100% + 15px);height:155px;
         background:url(https://3.bp.blogspot.com/-FDsajzEttkc/UKjpUKE2lII/AAAAAAAABEI/Okewy8Xa3KA/s1600/Twitter-Header-Gradient-7.png);
         background-size:100%;">
       </div>
       <img src="https://avatars.dicebear.com/v2/gridy/${accountId}.svg"
-        style="width:60px;height:60px;position:absolute;top:70px;margin-left:15px;" />
-      <div style="color:#fff;font-size:28px;position:absolute;margin-left:15px;top:135px;color:white">${accountId}</div>
+        style="width:60px;height:60px;position:absolute;top:30px;margin-left:15px;" />
+      <div style="color:#fff;font-size:28px;position:absolute;margin-left:15px;top:115px;color:white">${accountId}</div>
     `);
 
     TWEET.getTweetsOfAccount(accountId).then((tweets) => {
