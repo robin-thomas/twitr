@@ -203,7 +203,8 @@ const TWEET = {
       const tweetEncoded = encodeURIComponent(JSON.stringify(tweet));
 
       const row = `<div class="row no-gutters tweets-row${tweet.deleted ? ' tweets-deleted' : ''}"
-                        id="tweet-display-id-${tweet.id}">
+                        id="tweet-display-id-${tweet.id}"
+                        ${tweet.deleted ? 'title="Deleted tweet"' : ''>
                     <input type="hidden" class="tweet-encoded" value="${tweetEncoded}" />
                     <div class="col-md-1">
                       ${tweet.avatar !== undefined ? `<img src="${tweet.avatar}" style="width:30px;height:30px" />` :
@@ -246,7 +247,7 @@ const TWEET = {
                         </div>
                         <div class="col-md-2">
                           <span>
-                            ${tweet.sender === NEAR.getAccount() ?
+                            ${tweet.sender === NEAR.getAccount() && tweet.deleted === false ?
                               '<i class="fas fa-edit tweet-edit" title="Edit tweet"></i>' : ''}
                           </span>
                         </div>
