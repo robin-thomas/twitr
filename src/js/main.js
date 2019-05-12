@@ -137,7 +137,8 @@ $(document).ready(() => {
     // Set the scroll down event handler.
     const tweetScrollHandler = async function() {
       // Only for HOME page.
-      if ($('.header-icon-active').attr('id') !== 'home-tweets') {
+      if ($('.header-icon-active').attr('id') !== 'home-tweets'
+          || searchTweets.val().trim().length > 0) {
         return;
       }
 
