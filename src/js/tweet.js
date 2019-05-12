@@ -200,7 +200,7 @@ const TWEET = {
       // Encode the tweet.
       const tweetEncoded = encodeURIComponent(JSON.stringify(tweet));
 
-      const row = `<div class="row no-gutters tweets-row ${tweets.deleted ? 'tweets-deleted' : ''}"
+      const row = `<div class="row no-gutters tweets-row${tweet.deleted ? ' tweets-deleted' : ''}"
                         id="tweet-display-id-${tweet.id}">
                     <input type="hidden" class="tweet-encoded" value="${tweetEncoded}" />
                     <div class="col-md-1">
