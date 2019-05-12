@@ -204,7 +204,7 @@ const TWEET = {
 
       const row = `<div class="row no-gutters tweets-row${tweet.deleted ? ' tweets-deleted' : ''}"
                         id="tweet-display-id-${tweet.id}"
-                        ${tweet.deleted ? 'title="Deleted tweet"' : ''>
+                        ${tweet.deleted ? 'title="Deleted tweet"' : ''}>
                     <input type="hidden" class="tweet-encoded" value="${tweetEncoded}" />
                     <div class="col-md-1">
                       ${tweet.avatar !== undefined ? `<img src="${tweet.avatar}" style="width:30px;height:30px" />` :
