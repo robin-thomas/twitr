@@ -290,7 +290,7 @@ $(document).ready(() => {
         TWEET.getTweetsOfAccount().then((tweets) => {
           $('#twitr-feed-timeline').find('.simplebar-content').html('');
           tweetLoading.hide();
-          TWEET.displayTweets(tweets);
+          TWEET.displayTweets(tweets, false /* prepend */, true /* profile */);
           new SimpleBar($('#twitr-feed-timeline')[0]);
         });
         break;

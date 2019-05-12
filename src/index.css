@@ -52,7 +52,8 @@ body {
 
 .tweet-action-retweet,
 .tweet-action-like,
-.tweet-edit {
+.tweet-edit,
+.tweet-delete {
   cursor:pointer;
 }
 
@@ -93,6 +94,10 @@ body {
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: rgba(181,187,202,.1);
+}
+
+.tweets-deleted {
+  background: #17222F;
 }
 
 #content .twitr-feed .twitr-feed-home {

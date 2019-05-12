@@ -106,6 +106,10 @@ const TWEET = {
         accountId: accountId || NEAR.getAccount(),
       });
 
+      if (accountId === null) {
+        tweets = tweets.filter(t => t.deleted !== true);
+      }
+
       // fix likes & retweets history.
       for (let tweet of tweets) {
         tweet.likeHistory = tweet.likeHistory
@@ -179,7 +183,7 @@ const TWEET = {
     return created;
   },
 
-  displayTweets: (tweets, prepend = false) => {
+  displayTweets: (tweets, prepend = false, profile = false) => {
     let ele = $('#twitr-feed-timeline').find('.simplebar-content');
     if (ele.length === 0) {
       ele = $('#twitr-feed-timeline');
@@ -196,7 +200,8 @@ const TWEET = {
       // Encode the tweet.
       const tweetEncoded = encodeURIComponent(JSON.stringify(tweet));
 
-      const row = `<div class="row no-gutters tweets-row" id="tweet-display-id-${tweet.id}">
+      const row = `<div class="row no-gutters tweets-row ${tweets.deleted ? 'tweets-deleted' : ''}"
+                        id="tweet-display-id-${tweet.id}">
                     <input type="hidden" class="tweet-encoded" value="${tweetEncoded}" />
                     <div class="col-md-1">
                       ${tweet.avatar !== undefined ? `<img src="${tweet.avatar}" style="width:30px;height:30px" />` :
@@ -243,12 +248,14 @@ const TWEET = {
                               '<i class="fas fa-edit tweet-edit" title="Edit tweet"></i>' : ''}
                           </span>
                         </div>
-                        <div class="col-md-2">
-                          <span>
-                            ${tweet.sender === NEAR.getAccount() ?
-                              '<i class="fas fa-trash-alt tweet-delete" title="Delete tweet"></i>' : ''}
-                          </span>
-                        </div>
+                        ${profile !== true ? `
+                          <div class="col-md-2">
+                            <span>
+                              ${tweet.sender === NEAR.getAccount() ?
+                                '<i class="fas fa-trash-alt tweet-delete" title="Delete tweet"></i>' : ''}
+                            </span>
+                          </div>` : ''
+                        }
                       </div>
                     </div>
                   </div>`;
