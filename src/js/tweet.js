@@ -242,12 +242,13 @@ const TWEET = {
                             ${tweet.sender === NEAR.getAccount() ?
                               '<i class="fas fa-edit tweet-edit" title="Edit tweet"></i>' : ''}
                           </span>
-                      </div>
-                      <div class="col-md-2">
-                        <span>
-                          ${tweet.sender === NEAR.getAccount() ?
-                            '<i class="fas fa-trash-alt tweet-delete" title="Delete tweet"></i>' : ''}
-                        </span>
+                        </div>
+                        <div class="col-md-2">
+                          <span>
+                            ${tweet.sender === NEAR.getAccount() ?
+                              '<i class="fas fa-trash-alt tweet-delete" title="Delete tweet"></i>' : ''}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>`;
@@ -284,6 +285,16 @@ const TWEET = {
       });
 
       return result.lastResult;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  deleteTweet: async (tweetId) => {
+    try {
+      await NEAR.contract.deleteTweet({
+        id: tweetId,
+      });
     } catch (err) {
       throw err;
     }

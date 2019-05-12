@@ -329,6 +329,24 @@ $(document).ready(() => {
     e.preventDefault();
   });
 
+  $('#twitr-feed-timeline').on('click', '.tweet-delete', async function(e) {
+    try {
+      // Get the tweet.
+      const parent = $(e.currentTarget).parent().parent().parent().parent().parent();
+      const json = decodeURIComponent(parent.find('.tweet-encoded').val());
+      const tweet = JSON.parse(json);
+
+      if (confirm('Are you sure you want to delete this tweet?')) {
+        await TWEET.deleteTweet(tweet.id);
+
+        // TODO: remove it from UI.
+        parent.remove();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
   $('#twitr-feed-timeline').on('click', '.tweet-edit', function(e) {
     try {
       // Get the tweet.

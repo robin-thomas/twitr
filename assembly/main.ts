@@ -60,7 +60,7 @@ export function getTweets(sender: string, end: i32): Array<Tweet> {
     result[i].retweets = retweetsMap.count();
     result[i].retweetHistory = retweetsMap.keys();
 
-    result[i].deleted = tweets[end - i].deleted != true;
+    result[i].deleted = tweets[end - i].deleted == true;
   }
 
   return result;
@@ -145,7 +145,7 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
       result[j].retweets = retweetsMap.count();
       result[j].retweetHistory = retweetsMap.keys();
 
-      result[j].deleted = tweets[i].deleted != true;
+      result[j].deleted = tweets[i].deleted == true;
     }
   }
   return result;
