@@ -157,7 +157,7 @@ const TWEET = {
     const newlineRegex = /(?:\r\n|\r|\n)/g;
 
     let text = tweetText.replace(urlRegex, (url) => {
-      return `<a href="${url}" target="_blank">${url.substring(0, 15)}...</a>`;
+      return `<a href="${url}" target="_blank">${url}...</a>`;
     });
     text = text.replace(hashtagRegex, (hashtag) => {
       return `<a href="#" class="tweet-hashtag">${hashtag}</a>`;
@@ -301,9 +301,11 @@ const TWEET = {
 
   deleteTweet: async (tweetId) => {
     try {
-      await NEAR.contract.deleteTweet({
+      const result = await NEAR.contract.deleteTweet({
         id: tweetId,
       });
+
+      console.log(result);
     } catch (err) {
       throw err;
     }

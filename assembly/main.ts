@@ -207,7 +207,7 @@ export function searchTweets(keyword: string, accountId: string): Array<Tweet> {
       result[j].retweets = retweetsMap.count();
       result[j].retweetHistory = retweetsMap.keys();
 
-      tweets[j].deleted = false;
+      result[j].deleted = false;
     }
   }
   return result;

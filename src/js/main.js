@@ -339,7 +339,7 @@ $(document).ready(() => {
       if (confirm('Are you sure you want to delete this tweet?')) {
         await TWEET.deleteTweet(tweet.id);
 
-        // TODO: remove it from UI.
+        // remove it from UI.
         parent.remove();
       }
     } catch (err) {
