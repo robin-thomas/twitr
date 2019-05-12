@@ -336,6 +336,8 @@ $(document).ready(() => {
       const json = decodeURIComponent(parent.find('.tweet-encoded').val());
       const tweet = JSON.parse(json);
 
+      $(e.currentTarget).parent().html('<i class="fas fa-spinner fa-spin"></i>');
+
       if (confirm('Are you sure you want to delete this tweet?')) {
         await TWEET.deleteTweet(tweet.id);
 
@@ -344,6 +346,7 @@ $(document).ready(() => {
       }
     } catch (err) {
       console.log(err);
+      $(e.currentTarget).parent().html('<i class="fas fa-trash-alt tweet-delete" title="Delete tweet"></i>');
     }
   });
 

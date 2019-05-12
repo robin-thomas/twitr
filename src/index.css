@@ -90,7 +90,7 @@ body {
 #content .twitr-feed > div > .row,
 #content .twitr-feed .simplebar-content > .row {
   min-height: 50px;
-  padding: 15px 0;
+  padding: 15px 25px 15px 15px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: rgba(181,187,202,.1);
