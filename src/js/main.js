@@ -309,8 +309,9 @@ $(document).ready(() => {
 
     // Construct the cover pic.
     $('.twitr-feed-home').html(`
-      <div style="width:100%;height:175px;
-        background:lightblue url(https://3.bp.blogspot.com/-FDsajzEttkc/UKjpUKE2lII/AAAAAAAABEI/Okewy8Xa3KA/s1600/Twitter-Header-Gradient-7.png) fixed;">
+      <div style="width:calc(100% + 15px);height:175px;
+        background:url(https://3.bp.blogspot.com/-FDsajzEttkc/UKjpUKE2lII/AAAAAAAABEI/Okewy8Xa3KA/s1600/Twitter-Header-Gradient-7.png);
+        background-size:100%;">
       </div>
       <img src="https://avatars.dicebear.com/v2/gridy/${accountId}.svg"
         style="width:60px;height:60px;position:absolute;top:70px;margin-left:15px;" />
