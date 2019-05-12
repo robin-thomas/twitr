@@ -22,6 +22,7 @@ let tweets = collections.vector<Tweet>("t");
 export function addTweet(tweet: Tweet): Tweet {
   tweet.id = tweets.length;
   tweet.sender = context.sender;
+  tweet.deleted = false;
   tweets.push(tweet);
 
   let likesMap = collections.map<string, string>('likes:' + tweet.id.toString());
@@ -105,6 +106,7 @@ export function retweet(id: i32, created: string, author: string, avatar: string
     tweet.created = created;
     tweet.author = author;
     tweet.avatar = avatar;
+    tweet.deleted = false;
 
     // Add the retweet.
     newTweet = addTweet(tweet);
@@ -145,7 +147,7 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
       result[j].retweets = retweetsMap.count();
       result[j].retweetHistory = retweetsMap.keys();
 
-      result[j].deleted = tweets[i].deleted == true;
+      result[j].deleted = (tweets[i].deleted == true);
     }
   }
   return result;
@@ -218,6 +220,8 @@ export function searchTweets(keyword: string, accountId: string): Array<Tweet> {
 // But right now we don't distinguish them with annotations yet.
 export function deleteTweet(id: i32): void {
   if (tweets.length > id && context.sender == tweets[id].sender) {
-    tweets[id].deleted = true;
+    let tweet = tweets[id];
+    tweet.deleted = true;
+    tweets[id] = tweet;
   }
 }

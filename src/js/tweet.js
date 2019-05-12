@@ -106,7 +106,7 @@ const TWEET = {
         accountId: accountId || NEAR.getAccount(),
       });
 
-      if (accountId === null) {
+      if (accountId !== null) {
         tweets = tweets.filter(t => t.deleted !== true);
       }
 
@@ -301,11 +301,9 @@ const TWEET = {
 
   deleteTweet: async (tweetId) => {
     try {
-      const result = await NEAR.contract.deleteTweet({
+      await NEAR.contract.deleteTweet({
         id: tweetId,
       });
-
-      console.log(result);
     } catch (err) {
       throw err;
     }
