@@ -9,7 +9,7 @@
 2. [Features](#features)
 3. [Architecture](#architecture)
 
-# Who is it for?
+# What is it?
 **twitr** is a Twitter clone built using [NEAR protocol](https://nearprotocol.com/), which allows a developer to write and deploy scalable decentralized applications on a developer-friendly blockchain.
 
 # Features
