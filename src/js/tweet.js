@@ -110,6 +110,8 @@ const TWEET = {
         tweets = tweets.filter(t => t.deleted !== true);
       }
 
+      console.log(tweets);
+
       // fix likes & retweets history.
       for (let tweet of tweets) {
         tweet.likeHistory = tweet.likeHistory
