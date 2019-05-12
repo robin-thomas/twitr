@@ -457,6 +457,9 @@ $(document).ready(() => {
         tweetLoading.hide();
         TWEET.displayTweets(tweets);
         new SimpleBar($('#twitr-feed-timeline')[0]);
+
+        $('#header-navbar .header-icon').removeClass('header-icon-active');
+        $('#home-tweets').addClass('header-icon-active');
       });
     }
   });

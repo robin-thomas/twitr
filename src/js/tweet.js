@@ -78,10 +78,22 @@ const TWEET = {
 
   downloadTweets: async (tweetId = null) => {
     try {
-      const tweets = await NEAR.contract.getTweets({
+      let tweets = await NEAR.contract.getTweets({
         sender: NEAR.getAccount(),
         end: tweetId,
       });
+      tweets = tweets.filter(t => t.deleted !== true);
+
+      // fix likes & retweets history.
+      for (let tweet of tweets) {
+        tweet.likeHistory = tweet.likeHistory
+                                 .filter(v => v !== `likes:${tweet.id}::.count`)
+                                 .map(v => v.replace(`likes:${tweet.id}::`, ''));
+        tweet.retweetHistory = tweet.retweetHistory
+                                    .filter(v => v !== `retweets:${tweet.id}::.count`)
+                                    .map(v => v.replace(`retweets:${tweet.id}::`, ''));
+      }
+
       return tweets;
     } catch (err) {
       throw err;
@@ -90,9 +102,20 @@ const TWEET = {
 
   getTweetsOfAccount: async (accountId = null) => {
     try {
-      const tweets = await NEAR.contract.getTweetsOfAccount({
+      let tweets = await NEAR.contract.getTweetsOfAccount({
         accountId: accountId || NEAR.getAccount(),
       });
+
+      // fix likes & retweets history.
+      for (let tweet of tweets) {
+        tweet.likeHistory = tweet.likeHistory
+                                 .filter(v => v !== `likes:${tweet.id}::.count`)
+                                 .map(v => v.replace(`likes:${tweet.id}::`, ''));
+        tweet.retweetHistory = tweet.retweetHistory
+                                    .filter(v => v !== `retweets:${tweet.id}::.count`)
+                                    .map(v => v.replace(`retweets:${tweet.id}::`, ''));
+      }
+
       return tweets;
     } catch (err) {
       throw err;
@@ -101,10 +124,21 @@ const TWEET = {
 
   searchTweets: async (keyword, accountId = null) => {
     try {
-      const tweets = await NEAR.contract.searchTweets({
+      let tweets = await NEAR.contract.searchTweets({
         keyword: keyword,
         accountId: accountId || NEAR.getAccount(),
       });
+
+      // fix likes & retweets history.
+      for (let tweet of tweets) {
+        tweet.likeHistory = tweet.likeHistory
+                                 .filter(v => v !== `likes:${tweet.id}::.count`)
+                                 .map(v => v.replace(`likes:${tweet.id}::`, ''));
+        tweet.retweetHistory = tweet.retweetHistory
+                                    .filter(v => v !== `retweets:${tweet.id}::.count`)
+                                    .map(v => v.replace(`retweets:${tweet.id}::`, ''));
+      }
+
       return tweets;
     } catch (err) {
       throw err;
@@ -208,6 +242,12 @@ const TWEET = {
                             ${tweet.sender === NEAR.getAccount() ?
                               '<i class="fas fa-edit tweet-edit" title="Edit tweet"></i>' : ''}
                           </span>
+                      </div>
+                      <div class="col-md-2">
+                        <span>
+                          ${tweet.sender === NEAR.getAccount() ?
+                            '<i class="fas fa-trash-alt tweet-delete" title="Delete tweet"></i>' : ''}
+                        </span>
                       </div>
                     </div>
                   </div>`;

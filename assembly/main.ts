@@ -52,11 +52,15 @@ export function getTweets(sender: string, end: i32): Array<Tweet> {
     let likesMap = collections.map<string, string>('likes:' + result[i].id.toString());
     result[i].hasLiked = likesMap.contains(sender);
     result[i].likes = likesMap.count();
+    result[i].likeHistory = likesMap.keys();
 
     // Get the "retweets" count.
     let retweetsMap = collections.map<string, string>('retweets:' + result[i].id.toString());
     result[i].hasRetweeted = retweetsMap.contains(sender);
     result[i].retweets = retweetsMap.count();
+    result[i].retweetHistory = retweetsMap.keys();
+
+    result[i].deleted = tweets[end - i].deleted != true;
   }
 
   return result;
@@ -125,7 +129,7 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
   }
 
   let result = new Array<Tweet>(numTweets);
-  for (let i = 0, j = -1; i < tweets.length; i++) {
+  for (let i = tweets.length - 1, j = -1; i >= 0; i--) {
     if (tweets[i].sender == accountId) {
       result[++j] = tweets[i];
 
@@ -133,11 +137,15 @@ export function getTweetsOfAccount(accountId: string): Array<Tweet> {
       let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
       result[j].hasLiked = likesMap.contains(accountId);
       result[j].likes = likesMap.count();
+      result[j].likeHistory = likesMap.keys();
 
       // Get the "retweets" count.
       let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
       result[j].hasRetweeted = retweetsMap.contains(accountId);
       result[j].retweets = retweetsMap.count();
+      result[j].retweetHistory = retweetsMap.keys();
+
+      result[j].deleted = tweets[i].deleted != true;
     }
   }
   return result;
@@ -157,6 +165,11 @@ export function editTweet(id: i32, text: string, created: string, img: string): 
     return null;
   }
 
+  // Tweet is not deleted.
+  if (tweets[id].deleted === true) {
+    return null;
+  }
+
   // Update the tweet.
   let tweet = tweets[id];
   tweet.text = text;
@@ -172,26 +185,39 @@ export function editTweet(id: i32, text: string, created: string, img: string): 
 export function searchTweets(keyword: string, accountId: string): Array<Tweet> {
   let numTweets = 0;
   for (let i = 0; i < tweets.length; i++) {
-    if (tweets[i].text.indexOf(keyword) >= 0) {
+    if (tweets[i].text.indexOf(keyword) >= 0 && tweets[i].deleted != true) {
       numTweets++;
     }
   }
 
   let result = new Array<Tweet>(numTweets);
-  for (let i = 0, j = -1; i < tweets.length; i++) {
-    if (tweets[i].text.indexOf(keyword) >= 0) {
+  for (let i = tweets.length - 1, j = -1; i >= 0; i--) {
+    if (tweets[i].text.indexOf(keyword) >= 0 && tweets[i].deleted != true) {
       result[++j] = tweets[i];
 
       // Get the "likes" count.
       let likesMap = collections.map<string, string>('likes:' + result[j].id.toString());
       result[j].hasLiked = likesMap.contains(accountId);
       result[j].likes = likesMap.count();
+      result[j].likeHistory = likesMap.keys();
 
       // Get the "retweets" count.
       let retweetsMap = collections.map<string, string>('retweets:' + result[j].id.toString());
       result[j].hasRetweeted = retweetsMap.contains(accountId);
       result[j].retweets = retweetsMap.count();
+      result[j].retweetHistory = retweetsMap.keys();
+
+      tweets[j].deleted = false;
     }
   }
   return result;
+}
+
+// Delete a tweet.
+// NOTE: This is a change method. Which means it will modify the state.
+// But right now we don't distinguish them with annotations yet.
+export function deleteTweet(id: i32): void {
+  if (tweets.length > id && context.sender == tweets[id].sender) {
+    tweets[id].deleted = true;
+  }
 }

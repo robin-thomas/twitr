@@ -711,6 +711,15 @@ export namespace collections {
       return keys.map<V>((key: string) => storage.get<V>(key));
     }
 
+    keys(start: K = null, end: K = null, limit: i32 = -1, startInclusive: bool = true): K[] {
+      let startKey = (start != null) ? this._key(start) : this._elementPrefix;
+      if (!startInclusive) {
+        startKey += String.fromCharCode(0);
+      }
+      let endKey = (end != null) ? this._key(end) : (this._elementPrefix + String.fromCharCode(255));
+      return storage.keyRange(startKey, endKey, limit);
+    }
+
     /**
      * @param key Key to check.
      * @returns True if the given key present in the map.

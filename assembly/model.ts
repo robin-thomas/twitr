@@ -8,9 +8,12 @@ export class Tweet {
   avatar: string;
   img: string;
   likes: i32;
+  likeHistory: Array<String>
   retweets: i32;
+  retweetHistory: Array<String>
   hasLiked: bool;
   hasRetweeted: bool;
+  deleted: bool;
 }
 
 export class TweetLike {
