@@ -460,6 +460,7 @@ $(document).ready(() => {
     // verify its not edit tweet operation.
     try {
       const tweetId = parseInt($('#edit-tweet-id').val());
+      console.log(tweetId);
       if (!isNaN(tweetId) && tweetId >= 0) {
         return;
       }
