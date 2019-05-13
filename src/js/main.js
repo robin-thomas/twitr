@@ -102,6 +102,7 @@ $(document).ready(() => {
       const dataURI = tweetImgShow.attr('src');
 
       await TWEET.createTweet(text, dataURI);
+      $('#edit-tweet-id').val('0');
 
       tweetInputDialog.modal('hide');
     } catch (err) {
@@ -460,7 +461,6 @@ $(document).ready(() => {
     // verify its not edit tweet operation.
     try {
       const tweetId = parseInt($('#edit-tweet-id').val());
-      console.log(tweetId);
       if (!isNaN(tweetId) && tweetId >= 0) {
         return;
       }
