@@ -1,6 +1,8 @@
 # twitr
 ![](https://img.shields.io/badge/nodejs-8.10-blue.svg) [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
+## [Winner of NEAR Hack.One hackathon!!](https://near.org/blog/near-community-update-may-17th-2019)
+
 # Demo videos
 * [twitr](https://www.youtube.com/watch?v=7_YMK0GizTc)
 
